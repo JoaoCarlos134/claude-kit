@@ -13,6 +13,7 @@ explained it to Claude at least twice. Project-specific skills and rules stay in
 | `agents/work-reviewer.md` | Independent, read-only reviewer: fact-checks claims, reruns checks, tries to break new code. Grown from the prosumer project. |
 | `skills/new-project/` | Sets up a project properly: personal identity, CLAUDE.md, tests from day one, CI, README with status. |
 | `hooks/identity_guard.py` | Blocks Claude's `git commit` / `git push` in my repos unless the identity is my personal one. Allowlist-based (GitHub noreply + `CLAUDE_KIT_PERSONAL_EMAILS`), so it names no employer and survives a job change. Repos owned by anyone else are left alone. |
+| `hooks/freshness_check.py` | At session start, fetches and warns (Claude and you) when the repo - or each repo in a folder of repos - is behind, ahead, diverged or unlinked from GitHub. Read-only; silent when all is in sync. |
 | `templates/CLAUDE.md` | Starting CLAUDE.md for a project. |
 | `global/CLAUDE.md` | My instructions for all projects -> `~/.claude/CLAUDE.md`. |
 | `git/setup-identity.sh` | Git config so *my own* commits (not only Claude's) use the personal identity in every repo of my account. |
