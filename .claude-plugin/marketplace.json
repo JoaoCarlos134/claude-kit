@@ -1,0 +1,12 @@
+{
+  "name": "claude-kit",
+  "owner": { "name": "JoaoCarlos134" },
+  "metadata": { "description": "Personal Claude Code base: reviewer agent, new-project skill, personal-identity guard." },
+  "plugins": [
+    {
+      "name": "joao-kit",
+      "source": "./plugins/joao-kit",
+      "description": "Personal base for every project: independent reviewer agent, new-project setup skill, personal-identity commit guard."
+    }
+  ]
+}
