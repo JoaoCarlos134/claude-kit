@@ -1,5 +1,8 @@
 # claude-kit
 
+[![CI](https://github.com/JoaoCarlos134/claude-kit/actions/workflows/ci.yml/badge.svg)](https://github.com/JoaoCarlos134/claude-kit/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 My personal base for Claude Code: what I learned on earlier projects, packaged so every machine and every new
 project starts from it instead of from zero. It is a plugin marketplace with one plugin, `joao-kit`.
 
@@ -52,3 +55,14 @@ mine, comma separated) and `CLAUDE_KIT_PERSONAL_EMAILS` (extra allowed addresses
 ```bash
 python -m pytest tests -q
 ```
+
+## Using it yourself
+
+It is built around one person's setup (`JoaoCarlos134` is the default account in `setup-identity.sh` and the
+guard), but every piece takes its own inputs: pass your account, name and noreply address to
+`setup-identity.sh`, set `CLAUDE_KIT_GITHUB_USERS` and `CLAUDE_KIT_PERSONAL_EMAILS` for the guard, and fork
+the repo to make the marketplace yours.
+
+## License
+
+[MIT](LICENSE)

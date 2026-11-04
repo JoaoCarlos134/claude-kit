@@ -2,5 +2,10 @@
   "name": "joao-kit",
   "version": "0.1.0",
   "description": "Personal base for every project: independent reviewer agent, new-project setup skill, personal-identity commit guard.",
-  "author": { "name": "JoaoCarlos134" }
+  "author": {
+    "name": "JoaoCarlos134"
+  },
+  "homepage": "https://github.com/JoaoCarlos134/claude-kit",
+  "repository": "https://github.com/JoaoCarlos134/claude-kit",
+  "license": "MIT"
 }
