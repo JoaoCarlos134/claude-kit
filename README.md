@@ -16,6 +16,7 @@ explained it to Claude at least twice. Project-specific skills and rules stay in
 | `hooks/freshness_check.py` | At session start, fetches and warns (Claude and you) when the repo - or each repo in a folder of repos - is behind, ahead, diverged or unlinked from GitHub. Read-only; silent when all is in sync. |
 | `templates/CLAUDE.md` | Starting CLAUDE.md for a project. |
 | `global/CLAUDE.md` | My instructions for all projects -> `~/.claude/CLAUDE.md`. |
+| `global/settings.json` | My Claude Code settings (model, effort, auto mode and its environment rules, this marketplace and plugin) -> merge into `~/.claude/settings.json`. Machine-specific entries (paths to one work repo) are left out on purpose. |
 | `git/setup-identity.sh` | Git config so *my own* commits (not only Claude's) use the personal identity in every repo of my account. |
 
 ## Install on a new machine
@@ -35,6 +36,10 @@ explained it to Claude at least twice. Project-specific skills and rules stay in
    Answer `y` to add the marketplace, then pick the user scope. Update later with `/plugin update`.
 
 3. Global instructions: copy `global/CLAUDE.md` to `~/.claude/CLAUDE.md` (merge if one exists).
+
+4. Settings: merge `global/settings.json` into `~/.claude/settings.json` - keys from the kit win, keys only
+   on the machine are kept. It also registers the marketplace and enables `joao-kit`, so step 2 can be
+   skipped if this is done first and Claude Code is restarted.
 
 The guard needs `python` on PATH and git. Optional env vars: `CLAUDE_KIT_GITHUB_USERS` (accounts treated as
 mine, comma separated) and `CLAUDE_KIT_PERSONAL_EMAILS` (extra allowed addresses).
