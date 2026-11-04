@@ -21,6 +21,9 @@ explained it to Claude at least twice. Project-specific skills and rules stay in
 
 ## Install on a new machine
 
+Quickest: paste the prompt in [NEW_MACHINE.md](NEW_MACHINE.md) into a Claude Code session opened in the
+projects parent folder; it does the steps below and clones/pulls every repo. By hand:
+
 1. Git identity (once per machine):
 
    ```bash
