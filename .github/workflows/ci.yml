@@ -12,12 +12,14 @@ jobs:
       matrix:
         # The hooks run wherever Claude Code does; the author uses Windows.
         os: [ubuntu-latest, windows-latest]
+        # Hooks run on whatever `python` a machine has; 3.11 caught a 3.12-only f-string once.
+        python: ["3.11", "3.12"]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python-version: ${{ matrix.python }}
       - run: python -m pip install pytest
       # The tests make real throwaway git repos; commits there need an identity.
       - run: |

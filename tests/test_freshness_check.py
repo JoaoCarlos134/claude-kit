@@ -82,6 +82,28 @@ def test_no_upstream_and_local_only(tmp_path):
     assert run_hook(local) is None
 
 
+def test_unmerged_branches_are_listed_local_and_github(tmp_path):
+    here, elsewhere = clone_pair(tmp_path)
+    g(here, "checkout", "-q", "-b", "mine")
+    g(here, "commit", "-q", "--allow-empty", "-m", "local work")
+    g(here, "checkout", "-q", "main")
+    g(elsewhere, "checkout", "-q", "-b", "theirs")
+    g(elsewhere, "commit", "-q", "--allow-empty", "-m", "pushed from the other machine")
+    g(elsewhere, "push", "-q", "origin", "theirs")
+    g(here, "checkout", "-q", "-b", "merged-feature")
+    g(here, "commit", "-q", "--allow-empty", "-m", "finished")
+    g(here, "checkout", "-q", "main")
+    g(here, "merge", "-q", "--ff-only", "merged-feature")
+    g(here, "push", "-q")
+    out = run_hook(here)
+    ctx = out["hookSpecificOutput"]["additionalContext"]
+    assert "here: 2 branch(es) with work not on main" in ctx
+    assert "mine (1 commit(s), local" in ctx
+    assert "theirs (1 commit(s), GitHub" in ctx
+    assert "merged-feature" not in ctx  # merged into main
+    assert "Unmerged branches: here: 2 branch(es)" in out["systemMessage"]
+
+
 def test_skips_after_clear_and_outside_repos(tmp_path):
     here, elsewhere = clone_pair(tmp_path)
     g(elsewhere, "commit", "-q", "--allow-empty", "-m", "x")

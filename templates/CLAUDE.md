@@ -18,7 +18,9 @@
 - <Privacy and data constraints: what must never be committed or published.>
 - <Languages: code / docs / comments.>
 - <Budget or resource limits (paid APIs, GPU).>
-- Commits use the personal identity only (GitHub noreply).
+- Commits use the personal identity only (GitHub noreply). Work ends on main (the "Finish on main" rule).
+- Model hints (pick-model): <what here is a chore for Haiku; what needs Opus - e.g. methodology changes,
+  anything that feeds a published number>.
 
 ## Architecture
 

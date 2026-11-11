@@ -93,8 +93,15 @@ def problems(repo, action):
 
 
 def main():
-    data = json.load(sys.stdin)
+    try:
+        data = json.loads(sys.stdin.buffer.read().decode("utf-8", errors="replace"))
+    except ValueError:
+        return 0
+    if not isinstance(data, dict) or not isinstance(data.get("tool_input"), (dict, type(None))):
+        return 0  # not a tool call Claude Code would send; nothing to guard
     command = (data.get("tool_input") or {}).get("command") or ""
+    if not isinstance(command, str):
+        return 0
     match = GIT_ACTION.search(command)
     if not match:
         return 0

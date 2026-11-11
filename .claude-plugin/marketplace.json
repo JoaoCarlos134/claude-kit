@@ -1,12 +1,12 @@
 {
   "name": "claude-kit",
   "owner": { "name": "JoaoCarlos134" },
-  "metadata": { "description": "Personal Claude Code base: reviewer agent, new-project skill, personal-identity guard." },
+  "metadata": { "description": "Personal Claude Code base: token-saving model routing, finish-on-main branch guard, reviewer agent, new-project skill, personal-identity guard." },
   "plugins": [
     {
       "name": "joao-kit",
       "source": "./plugins/joao-kit",
-      "description": "Personal base for every project: independent reviewer agent, new-project setup skill, personal-identity commit guard."
+      "description": "Personal base for every project: model routing that saves tokens (prompt router, Haiku/Sonnet/Opus agents that keep the project's memory, pick-model skill), finish-on-main branch guard, independent reviewer agent, new-project setup skill, personal-identity commit guard."
     }
   ]
 }

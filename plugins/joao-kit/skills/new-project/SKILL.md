@@ -27,7 +27,10 @@ Fill in, short and factual:
 - **What it is** in two lines, and who it is for.
 - **Status** line (active / paused because X / complete), dated.
 - **Commands**: install, run, test, lint - exactly as typed, using the project environment.
-- **Rules**: privacy and data constraints, languages for code/docs/comments, budget limits.
+- **Rules**: privacy and data constraints, languages for code/docs/comments, budget limits, and a
+  **Model hints** line for the `pick-model` router: which tasks here are chores a cheap model can do and
+  which need Opus (e.g. anything that changes a method or a published number). Leave it out if the generic
+  tiers fit.
 - **Decisions**: a dated log, each with the reason and what was rejected. This is the most valuable section
   later - "decided by ear after comparing six variants" saves a whole session of re-litigating.
 
@@ -53,5 +56,10 @@ Fill in, short and factual:
 ## 6. First commit and handover
 
 - Commit with a message that says what and why. Run the `work-reviewer` agent over the first commits.
+- Work ends on main: if the setup was done on a branch, merge it and push main before finishing ("Finish
+  on main" in the global CLAUDE.md).
+- Nothing to install per project for model routing or the branch rule: the `joao-kit` plugin is enabled at
+  user scope, so its router, model-pinned agents and branch guard already apply here. Check it is on
+  (`joao-kit@claude-kit` under `enabledPlugins` in `~/.claude/settings.json`) if hooks seem silent.
 - Tell the user what was set up, what was skipped and why, and what they must do by hand (create the GitHub
   repo, add secrets to the CI, choose a licence).

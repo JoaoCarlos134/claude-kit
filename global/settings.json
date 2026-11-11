@@ -2,7 +2,7 @@
   "permissions": {
     "defaultMode": "auto"
   },
-  "model": "opus",
+  "model": "sonnet",
   "extraKnownMarketplaces": {
     "claude-kit": {
       "source": {
@@ -14,7 +14,7 @@
   "enabledPlugins": {
     "joao-kit@claude-kit": true
   },
-  "effortLevel": "high",
+  "effortLevel": "medium",
   "modelSettings": {
     "claude-opus-5-5": {
       "effortLevel": "high"

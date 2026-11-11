@@ -14,12 +14,17 @@ explained it to Claude at least twice. Project-specific skills and rules stay in
 | Piece | What it does |
 |---|---|
 | `agents/work-reviewer.md` | Independent, read-only reviewer: fact-checks claims, reruns checks, tries to break new code. Grown from the prosumer project. |
+| `agents/haiku-worker.md`, `sonnet-worker.md`, `opus-thinker.md` | The same work on a cheaper (or deeper) model: chores on Haiku 5.5, standard implementation on Sonnet 5.5, read-only diagnosis and plans on Opus 5.5. A session can't change its own model, but it can hand work to these. |
+| `skills/pick-model/` | Decides where a task runs - effort change, one of those agents, a new session, or a `/model` switch - from the live model, context size and cache, with what a switch would cost. |
 | `skills/new-project/` | Sets up a project properly: personal identity, CLAUDE.md, tests from day one, CI, README with status. |
+| `hooks/model_router.py` | On every prompt: labels it chore / standard / deep (English and Portuguese keywords, no model call) and, when the session's model or effort doesn't fit, tells Claude which agent to hand it to and tells you once which `/effort` or `/model` would do. Silent when the fit is fine. |
+| `hooks/context_bridge.py` | When one of the three agents starts, gives it the project's auto-memory index and a digest of the session (recent requests, files edited, git status), so a cheap model works with the project's memory without paying for the session's whole context. |
+| `hooks/branch_guard.py` | "Finish on main", in my own repos: at the end of a turn, if a branch this session worked on (its tip is in this worktree's HEAD reflog since the session started) still has commits not on main, asks Claude once to merge and push main or say why not; later commits only notify you. Other sessions' worktree branches never count. `CLAUDE_KIT_BRANCH_RULE=all` applies it to every repo. |
 | `hooks/identity_guard.py` | Blocks Claude's `git commit` / `git push` in my repos unless the identity is my personal one. Allowlist-based (GitHub noreply + `CLAUDE_KIT_PERSONAL_EMAILS`), so it names no employer and survives a job change. Repos owned by anyone else are left alone. |
-| `hooks/freshness_check.py` | At session start, fetches and warns (Claude and you) when the repo - or each repo in a folder of repos - is behind, ahead, diverged or unlinked from GitHub. Read-only; silent when all is in sync. |
+| `hooks/freshness_check.py` | At session start, fetches and warns (Claude and you) when the repo - or each repo in a folder of repos - is behind, ahead, diverged or unlinked from GitHub, and lists branches whose work is not on main yet, so it isn't done twice. Read-only; silent when all is in sync and merged. |
 | `templates/CLAUDE.md` | Starting CLAUDE.md for a project. |
 | `global/CLAUDE.md` | My instructions for all projects -> `~/.claude/CLAUDE.md`. |
-| `global/settings.json` | My Claude Code settings (model, effort, auto mode and its environment rules, this marketplace and plugin) -> merge into `~/.claude/settings.json`. Machine-specific entries (paths to one work repo) are left out on purpose. |
+| `global/settings.json` | My Claude Code settings (default Sonnet 5.5 at medium effort - Opus comes in through the router and `opus-thinker` - auto mode and its environment rules, this marketplace and plugin) -> merge into `~/.claude/settings.json`. Machine-specific entries (paths to one work repo) are left out on purpose. |
 | `git/setup-identity.sh` | Git config so *my own* commits (not only Claude's) use the personal identity in every repo of my account. |
 
 ## Install on a new machine
@@ -47,7 +52,7 @@ projects parent folder; it does the steps below and clones/pulls every repo. By 
    on the machine are kept. It also registers the marketplace and enables `joao-kit`, so step 2 can be
    skipped if this is done first and Claude Code is restarted.
 
-The guard needs `python` on PATH and git. Optional env vars: `CLAUDE_KIT_GITHUB_USERS` (accounts treated as
+The hooks need `python` 3.11 or newer on PATH (CI tests 3.11 and 3.12) and git. Optional env vars: `CLAUDE_KIT_GITHUB_USERS` (accounts treated as
 mine, comma separated) and `CLAUDE_KIT_PERSONAL_EMAILS` (extra allowed addresses).
 
 ## Tests
