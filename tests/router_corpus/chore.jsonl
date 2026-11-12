@@ -1,0 +1,100 @@
+{"id": "c001", "prompt": "rename the variable foo to bar in all files", "lang": "en", "expect": "chore", "alt": [], "tags": ["sanity"], "note": "mechanical rename; pre-existing test case"}
+{"id": "c002", "prompt": "fix the typo in the README", "lang": "en", "expect": "chore", "alt": [], "tags": ["sanity"], "note": "typo fix; pre-existing test case"}
+{"id": "c003", "prompt": "traduza o README para o inglês", "lang": "pt", "expect": "chore", "alt": [], "tags": ["sanity"], "note": "translation; pre-existing test case"}
+{"id": "c004", "prompt": "convert this table to csv please", "lang": "en", "expect": "chore", "alt": [], "tags": ["sanity"], "note": "format conversion; pre-existing test case"}
+{"id": "c005", "prompt": "renomeie a função carrega_dados para load_data em todos os arquivos do projeto", "lang": "pt", "expect": "chore", "alt": [], "tags": ["false-positive"], "note": "rename; 'funcao' is only a noun here"}
+{"id": "c006", "prompt": "bump the version to 1.4.2 in pyproject.toml and the changelog", "lang": "en", "expect": "chore", "alt": [], "tags": [], "note": "version bump"}
+{"id": "c007", "prompt": "atualize a data no rodapé de todas as páginas para 2026", "lang": "pt", "expect": "chore", "alt": [], "tags": ["vocab"], "note": "date update across files"}
+{"id": "c008", "prompt": "sort the imports in utils.py alphabetically", "lang": "en", "expect": "chore", "alt": [], "tags": [], "note": "mechanical ordering"}
+{"id": "c009", "prompt": "ordene as linhas do arquivo requisitos.txt em ordem alfabética", "lang": "pt", "expect": "chore", "alt": [], "tags": [], "note": "mechanical ordering"}
+{"id": "c010", "prompt": "extract all the dates from notes.txt into a list", "lang": "en", "expect": "chore", "alt": [], "tags": [], "note": "data extraction"}
+{"id": "c011", "prompt": "extraia os nomes das colunas do arquivo dados.csv e me mostre em uma tabela markdown", "lang": "pt", "expect": "chore", "alt": [], "tags": [], "note": "data extraction"}
+{"id": "c012", "prompt": "reformat the markdown table in docs/setup.md so the columns line up", "lang": "en", "expect": "chore", "alt": [], "tags": [], "note": "reformatting"}
+{"id": "c013", "prompt": "formate o arquivo config.json com indentação de 2 espaços", "lang": "pt", "expect": "chore", "alt": [], "tags": [], "note": "reformatting"}
+{"id": "c014", "prompt": "list all the python files under src that import pandas", "lang": "en", "expect": "chore", "alt": [], "tags": [], "note": "listing files"}
+{"id": "c015", "prompt": "liste todos os arquivos .md da pasta docs com o tamanho de cada um", "lang": "pt", "expect": "chore", "alt": [], "tags": [], "note": "listing files"}
+{"id": "c016", "prompt": "summarize the changes in the last five commits in three bullet points", "lang": "en", "expect": "chore", "alt": [], "tags": [], "note": "short summary of known material"}
+{"id": "c017", "prompt": "resuma em um parágrafo o que o arquivo NOTAS.md diz", "lang": "pt", "expect": "chore", "alt": [], "tags": [], "note": "summary of one file"}
+{"id": "c018", "prompt": "commit these changes with the message \"update docs\"", "lang": "en", "expect": "chore", "alt": [], "tags": [], "note": "git housekeeping"}
+{"id": "c019", "prompt": "faça o commit das mudanças e dê push", "lang": "pt", "expect": "chore", "alt": [], "tags": [], "note": "git housekeeping"}
+{"id": "c020", "prompt": "capitalize the first letter of every heading in guide.md", "lang": "en", "expect": "chore", "alt": [], "tags": [], "note": "mechanical text edit"}
+{"id": "c021", "prompt": "troque todas as aspas simples por aspas duplas no arquivo settings.py", "lang": "pt", "expect": "chore", "alt": [], "tags": ["vocab"], "note": "search and replace; no chore keyword of the old list"}
+{"id": "c022", "prompt": "replace every occurrence of http:// with https:// in the docs folder", "lang": "en", "expect": "chore", "alt": [], "tags": ["vocab"], "note": "search and replace"}
+{"id": "c023", "prompt": "remove trailing whitespace from all the files in src", "lang": "en", "expect": "chore", "alt": [], "tags": ["vocab"], "note": "mechanical cleanup"}
+{"id": "c024", "prompt": "apague as linhas em branco duplicadas do relatorio.md", "lang": "pt", "expect": "chore", "alt": [], "tags": ["vocab"], "note": "mechanical cleanup"}
+{"id": "c025", "prompt": "convert config.yaml into json", "lang": "en", "expect": "chore", "alt": [], "tags": [], "note": "format conversion"}
+{"id": "c026", "prompt": "passa a lista de dependencias do readme para yaml", "lang": "pt", "expect": "chore", "alt": [], "tags": ["informal"], "note": "format conversion, informal verb"}
+{"id": "c027", "prompt": "add the MIT license badge to the top of the readme", "lang": "en", "expect": "chore", "alt": [], "tags": [], "note": "badge"}
+{"id": "c028", "prompt": "update the copyright year in the LICENSE file", "lang": "en", "expect": "chore", "alt": [], "tags": [], "note": "year bump"}
+{"id": "c029", "prompt": "copy the file template.env to .env.example", "lang": "en", "expect": "chore", "alt": [], "tags": [], "note": "file copy"}
+{"id": "c030", "prompt": "mova os arquivos de imagem para a pasta assets e atualize os links", "lang": "pt", "expect": "chore", "alt": [], "tags": ["vocab"], "note": "move files, fix links"}
+{"id": "c031", "prompt": "count how many lines of code each module in src has", "lang": "en", "expect": "chore", "alt": [], "tags": ["false-positive"], "note": "counting; 'module' is only a noun"}
+{"id": "c032", "prompt": "conte quantas vezes a palavra TODO aparece no repositório", "lang": "pt", "expect": "chore", "alt": [], "tags": ["vocab"], "note": "counting"}
+{"id": "c033", "prompt": "delete the unused imports in api.py", "lang": "en", "expect": "chore", "alt": ["standard"], "tags": ["vocab"], "note": "mechanical cleanup"}
+{"id": "c034", "prompt": "alphabetize the entries in the glossary section", "lang": "en", "expect": "chore", "alt": [], "tags": ["vocab"], "note": "ordering"}
+{"id": "c035", "prompt": "traduz o primeiro paragrafo do README pro portugues pfv", "lang": "pt", "expect": "chore", "alt": [], "tags": ["informal", "typo"], "note": "translation, no accents"}
+{"id": "c036", "prompt": "renomea os arquivo de teste pra comecar com test_", "lang": "pt", "expect": "chore", "alt": [], "tags": ["typo", "false-positive"], "note": "rename with a typo in the verb; 'teste' is a noun"}
+{"id": "c037", "prompt": "corrige os erros de digitacao do arquivo intro.md", "lang": "pt", "expect": "chore", "alt": [], "tags": ["informal", "false-positive"], "note": "typo fix; 'corrige' and 'erros' must not make it standard"}
+{"id": "c038", "prompt": "pls fix teh typos in the contributing guide", "lang": "en", "expect": "chore", "alt": [], "tags": ["typo", "informal"], "note": "typo fix"}
+{"id": "c039", "prompt": "chnage all tabs to 4 spaces in main.py", "lang": "en", "expect": "chore", "alt": [], "tags": ["typo", "vocab"], "note": "whitespace change, typo in the verb"}
+{"id": "c040", "prompt": "add a link to the installation guide in the table of contents", "lang": "en", "expect": "chore", "alt": [], "tags": [], "note": "link edit"}
+{"id": "c041", "prompt": "turn the bullet list in the changelog into a numbered list", "lang": "en", "expect": "chore", "alt": [], "tags": ["vocab"], "note": "reformatting without a keyword"}
+{"id": "c042", "prompt": "coloque os itens do changelog em ordem cronológica", "lang": "pt", "expect": "chore", "alt": [], "tags": ["vocab"], "note": "ordering"}
+{"id": "c043", "prompt": "make the headings in api.md use sentence case", "lang": "en", "expect": "chore", "alt": [], "tags": ["vocab"], "note": "mechanical text edit"}
+{"id": "c044", "prompt": "gere um índice para o arquivo manual.md", "lang": "pt", "expect": "chore", "alt": [], "tags": ["vocab"], "note": "table of contents"}
+{"id": "c045", "prompt": "wrap the lines of notes.txt at 100 characters", "lang": "en", "expect": "chore", "alt": [], "tags": ["vocab"], "note": "reformatting"}
+{"id": "c046", "prompt": "extraia as datas do log abaixo e coloque em uma coluna:\n2026-01-03 12:00:01 ERROR failed to connect\n2026-01-03 12:05:44 ERROR timeout while reading\n2026-01-04 08:11:09 WARN retrying", "lang": "pt", "expect": "chore", "alt": [], "tags": ["log", "false-positive"], "note": "extraction; ERROR/failed are log lines, not the request"}
+{"id": "c047", "prompt": "summarize this error log in two lines:\nERROR worker 3 crashed: connection reset\nERROR worker 5 crashed: connection reset\nFAILED 12 tests", "lang": "en", "expect": "chore", "alt": [], "tags": ["log", "false-positive"], "note": "summary; error/crashed/failed come from the log"}
+{"id": "c048", "prompt": "translate the docstrings in helpers.py from Portuguese to English", "lang": "en", "expect": "chore", "alt": [], "tags": [], "note": "translation"}
+{"id": "c049", "prompt": "traduce el archivo LEEME.md al inglés", "lang": "es", "expect": "chore", "alt": [], "tags": ["es"], "note": "translation, Spanish"}
+{"id": "c050", "prompt": "renombra la variable total a suma_total en todo el proyecto", "lang": "es", "expect": "chore", "alt": [], "tags": ["es"], "note": "rename, Spanish"}
+{"id": "c051", "prompt": "ordena alfabéticamente la lista de dependencias en requirements.txt", "lang": "es", "expect": "chore", "alt": [], "tags": ["es"], "note": "ordering, Spanish"}
+{"id": "c052", "prompt": "traduis le fichier README en anglais", "lang": "fr", "expect": "chore", "alt": [], "tags": ["fr"], "note": "translation, French"}
+{"id": "c053", "prompt": "renomme la fonction charger en load partout dans le projet", "lang": "fr", "expect": "chore", "alt": [], "tags": ["fr"], "note": "rename, French"}
+{"id": "c054", "prompt": "convierte esta tabla a formato csv", "lang": "es", "expect": "chore", "alt": [], "tags": ["es"], "note": "format conversion, Spanish"}
+{"id": "c055", "prompt": "update the status line in CLAUDE.md to today's date", "lang": "en", "expect": "chore", "alt": [], "tags": [], "note": "status line"}
+{"id": "c056", "prompt": "atualize a linha de status do ROADMAP para \"em andamento\"", "lang": "pt", "expect": "chore", "alt": [], "tags": ["vocab"], "note": "status line"}
+{"id": "c057", "prompt": "put the function names in snake_case in the module helpers.py", "lang": "en", "expect": "chore", "alt": [], "tags": ["false-positive", "vocab"], "note": "rename; function/module are nouns"}
+{"id": "c058", "prompt": "remove the console.log calls from the components folder", "lang": "en", "expect": "chore", "alt": ["standard"], "tags": ["false-positive"], "note": "mechanical cleanup; 'components' is a folder name"}
+{"id": "c059", "prompt": "lowercase all the file names in the images folder", "lang": "en", "expect": "chore", "alt": [], "tags": [], "note": "rename"}
+{"id": "c060", "prompt": "deixe todas as chaves do json em minúsculas", "lang": "pt", "expect": "chore", "alt": [], "tags": [], "note": "mechanical edit"}
+{"id": "c061", "prompt": "git pull and tell me if there are conflicts", "lang": "en", "expect": "chore", "alt": ["none"], "tags": [], "note": "git housekeeping"}
+{"id": "c062", "prompt": "rode o git status e me diga o que mudou", "lang": "pt", "expect": "chore", "alt": ["none"], "tags": [], "note": "git housekeeping"}
+{"id": "c063", "prompt": "make a markdown table from this csv:\nname,qty\nbolt,12\nnut,40", "lang": "en", "expect": "chore", "alt": [], "tags": ["vocab"], "note": "format conversion with inline data"}
+{"id": "c064", "prompt": "passe a tabela abaixo para json:\n| nome | idade |\n|---|---|\n| a | 1 |", "lang": "pt", "expect": "chore", "alt": [], "tags": [], "note": "format conversion with inline data"}
+{"id": "c065", "prompt": "strip the comments from the sample config file", "lang": "en", "expect": "chore", "alt": [], "tags": ["vocab"], "note": "mechanical cleanup"}
+{"id": "c066", "prompt": "swap the order of the first two columns in resultados.csv", "lang": "en", "expect": "chore", "alt": [], "tags": ["vocab"], "note": "mechanical data edit"}
+{"id": "c067", "prompt": "junte os três arquivos csv da pasta dados em um só, mantendo o cabeçalho", "lang": "pt", "expect": "chore", "alt": ["standard"], "tags": ["vocab"], "note": "concatenate files"}
+{"id": "c068", "prompt": "export the list of open TODOs to a text file", "lang": "en", "expect": "chore", "alt": ["standard"], "tags": ["vocab"], "note": "listing"}
+{"id": "c069", "prompt": "replace the word \"customer\" with \"client\" across the docs", "lang": "en", "expect": "chore", "alt": [], "tags": ["vocab"], "note": "search and replace"}
+{"id": "c070", "prompt": "troque \"usuario\" por \"utilizador\" em todos os textos da interface", "lang": "pt", "expect": "chore", "alt": [], "tags": ["vocab"], "note": "search and replace"}
+{"id": "c071", "prompt": "add today's date to the top of the meeting notes file", "lang": "en", "expect": "chore", "alt": [], "tags": [], "note": "date edit"}
+{"id": "c072", "prompt": "faz um rename do helper parse_date pra parse_datetime no repo todo", "lang": "mix", "expect": "chore", "alt": [], "tags": ["mixed-lang", "informal"], "note": "rename, PT/EN mix"}
+{"id": "c073", "prompt": "da um bump na version do package.json pra 2.0.1", "lang": "mix", "expect": "chore", "alt": [], "tags": ["mixed-lang", "informal"], "note": "version bump, PT/EN mix"}
+{"id": "c074", "prompt": "update the links in the readme, some of them still point to the old docs folder", "lang": "en", "expect": "chore", "alt": [], "tags": [], "note": "link edit"}
+{"id": "c075", "prompt": "tira os espaços duplos do texto do resumo.md", "lang": "pt", "expect": "chore", "alt": [], "tags": ["informal", "vocab"], "note": "mechanical cleanup; 'resumo' is a file name"}
+{"id": "c076", "prompt": "format the dates in the csv as YYYY-MM-DD", "lang": "en", "expect": "chore", "alt": ["standard"], "tags": [], "note": "reformat data"}
+{"id": "c077", "prompt": "list the functions defined in parser.py with their line numbers", "lang": "en", "expect": "chore", "alt": [], "tags": ["false-positive"], "note": "listing; 'functions' is a noun"}
+{"id": "c078", "prompt": "summarize this <pasted_content id=\"p1\">Minutes of the weekly sync. The team went through the open items one by one. The export feature slipped a week because the review took longer than planned. Two people are out next week. The next sync moves to Thursday.</pasted_content id=\"p1\">", "lang": "en", "expect": "chore", "alt": ["none"], "tags": ["paste", "short"], "note": "two own words plus a paste is a clear request"}
+{"id": "c079", "prompt": "traduza isso <pasted_content id=\"p2\">The installation requires Python 3.11 or newer. Create a virtual environment, install the requirements and run the setup script. The first run downloads the sample data.</pasted_content id=\"p2\">", "lang": "pt", "expect": "chore", "alt": ["none"], "tags": ["paste", "short"], "note": "two own words plus a paste"}
+{"id": "c080", "prompt": "extract the table from the text below into csv <pasted_content id=\"p3\">Results per site. North: 12 units, 3 faults. South: 9 units, 1 fault. East: 15 units, no faults. The architecture of the collection system and its security audit are described elsewhere.</pasted_content id=\"p3\">", "lang": "en", "expect": "chore", "alt": [], "tags": ["paste"], "note": "extraction; the paste mentions architecture/security but the ask is mechanical"}
+{"id": "c081", "prompt": "rename the following files in the data folder: jan.csv to 2026-01.csv, fev.csv to 2026-02.csv, mar.csv to 2026-03.csv, abr.csv to 2026-04.csv, mai.csv to 2026-05.csv, jun.csv to 2026-06.csv, jul.csv to 2026-07.csv, ago.csv to 2026-08.csv, set.csv to 2026-09.csv, out.csv to 2026-10.csv, nov.csv to 2026-11.csv, dez.csv to 2026-12.csv, and then also the matching png files in the plots folder with the same pattern, and the three summary files so that they follow the same naming scheme with the year first and the month after it, and keep the extension of each one", "lang": "en", "expect": "chore", "alt": ["none"], "tags": ["long"], "note": "a long but fully mechanical list is still a chore"}
+{"id": "c082", "prompt": "corrija a ortografia e a pontuação do capítulo 2, sem mudar o sentido", "lang": "pt", "expect": "chore", "alt": [], "tags": [], "note": "spelling pass"}
+{"id": "c083", "prompt": "padronize os nomes das colunas do dataframe para snake_case no notebook", "lang": "pt", "expect": "chore", "alt": ["standard"], "tags": ["vocab"], "note": "rename columns"}
+{"id": "c084", "prompt": "regenerate the requirements.txt from the current environment", "lang": "en", "expect": "chore", "alt": [], "tags": ["vocab"], "note": "one-command housekeeping"}
+{"id": "c085", "prompt": "apaga os arquivos .pyc e as pastas __pycache__", "lang": "pt", "expect": "chore", "alt": [], "tags": ["vocab", "informal"], "note": "cleanup"}
+{"id": "c086", "prompt": "clean up the formatting of the bibtex file so every entry has the same field order", "lang": "en", "expect": "chore", "alt": [], "tags": [], "note": "reformatting"}
+{"id": "c087", "prompt": "fix the typo in the methodology section", "lang": "en", "expect": "chore", "alt": [], "tags": ["false-positive", "mixed-intent"], "note": "typo fix; 'methodology' is where, not what"}
+{"id": "c088", "prompt": "traduza o capítulo de metodologia da tese para o inglês", "lang": "pt", "expect": "chore", "alt": [], "tags": ["false-positive", "mixed-intent"], "note": "translation; metodologia/tese only name the text"}
+{"id": "c089", "prompt": "rename the architecture folder to design", "lang": "en", "expect": "chore", "alt": [], "tags": ["false-positive", "mixed-intent"], "note": "rename; 'architecture' is a folder name"}
+{"id": "c090", "prompt": "format the thesis bibliography in ABNT style", "lang": "en", "expect": "chore", "alt": [], "tags": ["false-positive", "mixed-intent"], "note": "reformatting; 'thesis' names the document"}
+{"id": "c091", "prompt": "list the security-related TODOs in the code", "lang": "en", "expect": "chore", "alt": [], "tags": ["false-positive", "mixed-intent"], "note": "listing; 'security' is a filter"}
+{"id": "c092", "prompt": "summarize the audit log entries from yesterday", "lang": "en", "expect": "chore", "alt": [], "tags": ["false-positive", "mixed-intent"], "note": "summary; 'audit log' is a file"}
+{"id": "c093", "prompt": "o teste de concorrência está com um typo no nome, corrija", "lang": "pt", "expect": "chore", "alt": ["standard"], "tags": ["false-positive", "mixed-intent"], "note": "typo fix; concorrencia/teste/corrija are not the job"}
+{"id": "c094", "prompt": "bump the version of the statistics package in requirements.txt", "lang": "en", "expect": "chore", "alt": [], "tags": ["false-positive", "mixed-intent"], "note": "version bump; 'statistics' is a package name"}
+{"id": "c095", "prompt": "extraia as tabelas do pdf da dissertação para csv", "lang": "pt", "expect": "chore", "alt": [], "tags": ["false-positive", "mixed-intent"], "note": "extraction; 'dissertacao' names the document"}
+{"id": "c096", "prompt": "commit the migration files and push", "lang": "en", "expect": "chore", "alt": [], "tags": ["false-positive", "mixed-intent"], "note": "git housekeeping; 'migration' names files"}
+{"id": "c097", "prompt": "abre um pull request com essas mudanças", "lang": "pt", "expect": "chore", "alt": ["none"], "tags": ["vocab"], "note": "git housekeeping"}
+{"id": "c098", "prompt": "arruma a indentaçao desse yaml q ta toda torta", "lang": "pt", "expect": "chore", "alt": [], "tags": ["informal", "typo"], "note": "reformatting, informal"}
+{"id": "c099", "prompt": "translate the error messages in messages.py to Portuguese", "lang": "en", "expect": "chore", "alt": [], "tags": ["false-positive"], "note": "translation; 'error' is part of the object"}
+{"id": "c100", "prompt": "renomeie os testes para seguir o padrão test_<modulo>_<caso>", "lang": "pt", "expect": "chore", "alt": [], "tags": ["false-positive"], "note": "rename; 'testes' is the object"}

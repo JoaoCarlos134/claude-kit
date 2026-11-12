@@ -1,0 +1,40 @@
+{"id": "a001", "prompt": "clean up the utils module", "lang": "en", "expect": "standard", "alt": ["chore", "none"], "tags": ["ambiguous"], "note": "could be dead-code removal or a tidy-up"}
+{"id": "a002", "prompt": "organize the imports and remove dead code in the services folder", "lang": "en", "expect": "chore", "alt": ["standard"], "tags": ["ambiguous"], "note": "mostly mechanical; dead code needs some reading"}
+{"id": "a003", "prompt": "melhore a performance da função de busca", "lang": "pt", "expect": "standard", "alt": ["deep", "none"], "tags": ["ambiguous"], "note": "scoped optimisation, depth unknown"}
+{"id": "a004", "prompt": "optimize the query, it takes 30 seconds", "lang": "en", "expect": "standard", "alt": ["deep", "none"], "tags": ["ambiguous"], "note": "scoped optimisation"}
+{"id": "a005", "prompt": "revise o texto da introdução", "lang": "pt", "expect": "standard", "alt": ["chore", "deep", "none"], "tags": ["ambiguous"], "note": "editing pass of unknown depth"}
+{"id": "a006", "prompt": "review my pull request", "lang": "en", "expect": "standard", "alt": ["deep", "none"], "tags": ["ambiguous"], "note": "depends on the size of the diff"}
+{"id": "a007", "prompt": "update the dependencies", "lang": "en", "expect": "chore", "alt": ["standard", "none"], "tags": ["ambiguous"], "note": "mechanical unless something breaks"}
+{"id": "a008", "prompt": "atualize as dependências e veja se algo quebra", "lang": "pt", "expect": "standard", "alt": ["chore", "none"], "tags": ["ambiguous"], "note": "update plus a check"}
+{"id": "a009", "prompt": "write the abstract for the paper", "lang": "en", "expect": "standard", "alt": ["deep", "none"], "tags": ["ambiguous"], "note": "writing that summarises existing work"}
+{"id": "a010", "prompt": "escreva o resumo do TCC", "lang": "pt", "expect": "standard", "alt": ["deep", "chore", "none"], "tags": ["ambiguous", "false-positive"], "note": "abstract writing; 'resumo' is the abstract"}
+{"id": "a011", "prompt": "add tests for everything in the core package", "lang": "en", "expect": "standard", "alt": ["deep"], "tags": ["ambiguous"], "note": "many tests, each one standard"}
+{"id": "a012", "prompt": "document the whole project", "lang": "en", "expect": "standard", "alt": ["chore", "deep", "none"], "tags": ["ambiguous"], "note": "broad docs task"}
+{"id": "a013", "prompt": "is this the right approach?", "lang": "en", "expect": "none", "alt": ["deep"], "tags": ["ambiguous", "question"], "note": "depends on what 'this' is"}
+{"id": "a014", "prompt": "what would you do differently in this module?", "lang": "en", "expect": "none", "alt": ["deep", "standard"], "tags": ["ambiguous", "question"], "note": "open opinion question"}
+{"id": "a015", "prompt": "why is the model so slow?", "lang": "en", "expect": "none", "alt": ["deep", "standard"], "tags": ["ambiguous", "question"], "note": "may be a quick answer or a real investigation"}
+{"id": "a016", "prompt": "tem como deixar isso mais rápido?", "lang": "pt", "expect": "none", "alt": ["standard"], "tags": ["ambiguous", "question"], "note": "vague optimisation question"}
+{"id": "a017", "prompt": "simplify this function", "lang": "en", "expect": "standard", "alt": ["chore", "none"], "tags": ["ambiguous"], "note": "small refactor"}
+{"id": "a018", "prompt": "merge the two config files into one", "lang": "en", "expect": "chore", "alt": ["standard", "none"], "tags": ["ambiguous"], "note": "mechanical unless keys conflict"}
+{"id": "a019", "prompt": "set up the project with poetry and pre-commit", "lang": "en", "expect": "standard", "alt": ["chore", "none"], "tags": ["ambiguous"], "note": "setup work"}
+{"id": "a020", "prompt": "investigate the failing build", "lang": "en", "expect": "standard", "alt": ["deep", "none"], "tags": ["ambiguous"], "note": "usually a quick diagnosis"}
+{"id": "a021", "prompt": "investigue por que o deploy falhou ontem", "lang": "pt", "expect": "standard", "alt": ["deep", "none"], "tags": ["ambiguous"], "note": "usually a quick diagnosis"}
+{"id": "a022", "prompt": "should I use a dict or a dataclass here?", "lang": "en", "expect": "none", "alt": ["deep"], "tags": ["ambiguous", "question"], "note": "a small decision answered in place"}
+{"id": "a023", "prompt": "qual biblioteca é melhor para ler excel, pandas ou openpyxl?", "lang": "pt", "expect": "none", "alt": ["deep"], "tags": ["ambiguous", "question"], "note": "a small decision answered in place"}
+{"id": "a024", "prompt": "compare these two csv files and tell me which rows differ", "lang": "en", "expect": "chore", "alt": ["standard", "none"], "tags": ["ambiguous", "false-positive"], "note": "mechanical diff; 'compare' is not a design comparison"}
+{"id": "a025", "prompt": "check if the numbers in table 2 match the ones in the results file", "lang": "en", "expect": "chore", "alt": ["standard", "none"], "tags": ["ambiguous"], "note": "mechanical check"}
+{"id": "a026", "prompt": "verifique se os números do artigo batem com os do notebook", "lang": "pt", "expect": "chore", "alt": ["standard", "deep", "none"], "tags": ["ambiguous"], "note": "mechanical check that feeds a published number"}
+{"id": "a027", "prompt": "explain the architecture of this project to me", "lang": "en", "expect": "none", "alt": ["deep"], "tags": ["ambiguous", "question", "false-positive"], "note": "an explanation, though it reads many files"}
+{"id": "a028", "prompt": "explique a metodologia usada nesse script", "lang": "pt", "expect": "none", "alt": ["deep"], "tags": ["ambiguous", "question", "false-positive"], "note": "an explanation of existing code"}
+{"id": "a029", "prompt": "do the refactor we discussed", "lang": "en", "expect": "standard", "alt": ["deep", "none"], "tags": ["ambiguous"], "note": "tier lives in the earlier conversation"}
+{"id": "a030", "prompt": "start with step 1 of the plan", "lang": "en", "expect": "none", "alt": ["standard"], "tags": ["ambiguous", "skip"], "note": "follow-up; tier lives in the earlier conversation"}
+{"id": "a031", "prompt": "agora faz o mesmo para os outros módulos", "lang": "pt", "expect": "none", "alt": ["standard", "chore"], "tags": ["ambiguous", "skip"], "note": "follow-up; repeats earlier work"}
+{"id": "a032", "prompt": "what are the expected results if we add more layers?", "lang": "en", "expect": "none", "alt": ["deep"], "tags": ["ambiguous", "question"], "note": "the short form of the seed question: answerable in place"}
+{"id": "a033", "prompt": "check the code for problems", "lang": "en", "expect": "standard", "alt": ["deep", "none"], "tags": ["ambiguous"], "note": "review of unknown size"}
+{"id": "a034", "prompt": "prepara o projeto para publicar no github", "lang": "pt", "expect": "standard", "alt": ["chore", "none"], "tags": ["ambiguous"], "note": "several small housekeeping steps"}
+{"id": "a035", "prompt": "make the code faster and cleaner", "lang": "en", "expect": "none", "alt": ["standard", "deep"], "tags": ["ambiguous"], "note": "too vague to judge"}
+{"id": "a036", "prompt": "is it worth adding type hints everywhere?", "lang": "en", "expect": "none", "alt": ["deep"], "tags": ["ambiguous", "question"], "note": "a small decision"}
+{"id": "a037", "prompt": "escreva a introdução do relatório com base nas notas", "lang": "pt", "expect": "standard", "alt": ["deep", "chore", "none"], "tags": ["ambiguous"], "note": "writing from notes"}
+{"id": "a038", "prompt": "summarize what you found and what you recommend", "lang": "en", "expect": "none", "alt": ["chore"], "tags": ["ambiguous"], "note": "asks the session for its own conclusions"}
+{"id": "a039", "prompt": "tidy the notebook and add a short description to each section", "lang": "en", "expect": "chore", "alt": ["standard"], "tags": ["ambiguous"], "note": "mostly mechanical"}
+{"id": "a040", "prompt": "dá pra confiar nesse resultado?", "lang": "pt", "expect": "none", "alt": ["deep"], "tags": ["ambiguous", "question"], "note": "may need a real validity check"}

@@ -1,0 +1,120 @@
+{"id": "n001", "prompt": "ok do it", "lang": "en", "expect": "none", "alt": [], "tags": ["sanity", "short", "skip"], "note": "confirmation; pre-existing test case"}
+{"id": "n002", "prompt": "yes", "lang": "en", "expect": "none", "alt": [], "tags": ["sanity", "short", "skip"], "note": "confirmation; pre-existing test case"}
+{"id": "n003", "prompt": "/model opus", "lang": "en", "expect": "none", "alt": [], "tags": ["sanity", "skip"], "note": "slash command; pre-existing test case"}
+{"id": "n004", "prompt": "<side-sessions-event>a session finished: refactor the whole codebase</side-sessions-event>", "lang": "en", "expect": "none", "alt": [], "tags": ["sanity", "skip"], "note": "event turn; pre-existing test case"}
+{"id": "n005", "prompt": "<pasted_content id=\"x\">design the architecture of everything</pasted_content> thanks", "lang": "en", "expect": "none", "alt": [], "tags": ["sanity", "paste", "skip"], "note": "the user's own word is only 'thanks'; pre-existing test case"}
+{"id": "n006", "prompt": "add a rule that by the end of session it gets merged", "lang": "en", "expect": "none", "alt": [], "tags": ["sanity"], "note": "unclear tier; pre-existing test case"}
+{"id": "n007", "prompt": "what is the best way to structure the forecasting model for the household data?", "lang": "en", "expect": "none", "alt": ["deep"], "tags": ["sanity", "question"], "note": "answered in place; pre-existing test case (project name replaced)"}
+{"id": "n008", "prompt": "o que é overfitting e como evito isso no meu modelo de previsão?", "lang": "pt", "expect": "none", "alt": [], "tags": ["sanity", "question"], "note": "explanation question; pre-existing test case"}
+{"id": "n009", "prompt": "convert the training loop to use the new data module and make sure the tests still pass", "lang": "en", "expect": "none", "alt": ["standard"], "tags": ["sanity"], "note": "pre-existing test case: must not become a chore"}
+{"id": "n010", "prompt": "why did you choose LightGBM over the persistence baseline here?", "lang": "en", "expect": "none", "alt": [], "tags": ["sanity", "question"], "note": "question about a past choice; pre-existing test case"}
+{"id": "n011", "prompt": "can you explain what this function does?", "lang": "en", "expect": "none", "alt": [], "tags": ["sanity", "question"], "note": "explanation; pre-existing test case"}
+{"id": "n012", "prompt": "where is the config loaded?", "lang": "en", "expect": "none", "alt": [], "tags": ["sanity", "question"], "note": "lookup; pre-existing test case"}
+{"id": "n013", "prompt": "what does this error mean in the CI log?", "lang": "en", "expect": "none", "alt": [], "tags": ["sanity", "question", "false-positive"], "note": "explanation; pre-existing test case"}
+{"id": "n014", "prompt": "por que o teste está falhando só no Windows?", "lang": "pt", "expect": "none", "alt": [], "tags": ["sanity", "question", "false-positive"], "note": "question answered in place; pre-existing test case"}
+{"id": "n015", "prompt": "continue", "lang": "en", "expect": "none", "alt": [], "tags": ["short", "skip"], "note": "follow-up: keep the current setup"}
+{"id": "n016", "prompt": "faça isso", "lang": "pt", "expect": "none", "alt": [], "tags": ["short", "skip"], "note": "follow-up"}
+{"id": "n017", "prompt": "pode seguir", "lang": "pt", "expect": "none", "alt": [], "tags": ["short", "skip"], "note": "follow-up"}
+{"id": "n018", "prompt": "thanks, that works", "lang": "en", "expect": "none", "alt": [], "tags": ["short"], "note": "thanks"}
+{"id": "n019", "prompt": "valeu, ficou ótimo", "lang": "pt", "expect": "none", "alt": [], "tags": ["short"], "note": "thanks"}
+{"id": "n020", "prompt": "did the tests pass?", "lang": "en", "expect": "none", "alt": [], "tags": ["question", "false-positive"], "note": "status question"}
+{"id": "n021", "prompt": "os testes passaram?", "lang": "pt", "expect": "none", "alt": [], "tags": ["question", "false-positive", "short"], "note": "status question"}
+{"id": "n022", "prompt": "what does this function do?", "lang": "en", "expect": "none", "alt": [], "tags": ["question"], "note": "explanation"}
+{"id": "n023", "prompt": "o que esse script faz?", "lang": "pt", "expect": "none", "alt": [], "tags": ["question"], "note": "explanation"}
+{"id": "n024", "prompt": "where is the error handled?", "lang": "en", "expect": "none", "alt": [], "tags": ["question", "false-positive"], "note": "lookup"}
+{"id": "n025", "prompt": "what's the difference between a list and a tuple?", "lang": "en", "expect": "none", "alt": [], "tags": ["question", "false-positive"], "note": "explanation; 'list' is a data type"}
+{"id": "n026", "prompt": "como eu rodo os testes desse projeto?", "lang": "pt", "expect": "none", "alt": [], "tags": ["question", "false-positive"], "note": "how-to question"}
+{"id": "n027", "prompt": "how do I install the dependencies?", "lang": "en", "expect": "none", "alt": [], "tags": ["question"], "note": "how-to question"}
+{"id": "n028", "prompt": "qual é o comando para formatar o código?", "lang": "pt", "expect": "none", "alt": [], "tags": ["question", "false-positive"], "note": "asks for a command, not a reformat"}
+{"id": "n029", "prompt": "which python version does this need?", "lang": "en", "expect": "none", "alt": [], "tags": ["question"], "note": "lookup"}
+{"id": "n030", "prompt": "what does \"bug bash\" mean?", "lang": "en", "expect": "none", "alt": [], "tags": ["question", "false-positive"], "note": "definition"}
+{"id": "n031", "prompt": "quanto tempo falta para terminar?", "lang": "pt", "expect": "none", "alt": [], "tags": ["question"], "note": "status question"}
+{"id": "n032", "prompt": "is the server still running?", "lang": "en", "expect": "none", "alt": [], "tags": ["question"], "note": "status question"}
+{"id": "n033", "prompt": "what did you change in the last step?", "lang": "en", "expect": "none", "alt": [], "tags": ["question"], "note": "question about past work"}
+{"id": "n034", "prompt": "pode me explicar o que é uma race condition?", "lang": "pt", "expect": "none", "alt": [], "tags": ["question", "false-positive"], "note": "definition of a deep-sounding term, not a diagnosis"}
+{"id": "n035", "prompt": "what is a memory leak?", "lang": "en", "expect": "none", "alt": [], "tags": ["question", "false-positive"], "note": "definition of a deep-sounding term"}
+{"id": "n036", "prompt": "o que significa significância estatística?", "lang": "pt", "expect": "none", "alt": [], "tags": ["question", "false-positive"], "note": "definition of a deep-sounding term"}
+{"id": "n037", "prompt": "what is the difference between security and privacy?", "lang": "en", "expect": "none", "alt": [], "tags": ["question", "false-positive"], "note": "definition question"}
+{"id": "n038", "prompt": "explain what an ablation study is in one paragraph", "lang": "en", "expect": "none", "alt": [], "tags": ["question", "false-positive"], "note": "short explanation of a term"}
+{"id": "n039", "prompt": "me explica rapidinho o que é vazamento de dados", "lang": "pt", "expect": "none", "alt": [], "tags": ["question", "false-positive", "informal"], "note": "quick explanation of a term"}
+{"id": "n040", "prompt": "how do I fix a merge conflict?", "lang": "en", "expect": "none", "alt": ["standard"], "tags": ["question"], "note": "how-to question"}
+{"id": "n041", "prompt": "what does this error mean?\nModuleNotFoundError: No module named 'yaml'", "lang": "en", "expect": "none", "alt": [], "tags": ["question", "log", "false-positive"], "note": "explanation of an error line"}
+{"id": "n042", "prompt": "why is this failing?\nFAILED tests/test_api.py::test_get - assert 404 == 200", "lang": "en", "expect": "none", "alt": ["standard"], "tags": ["question", "log", "false-positive"], "note": "question answered in place"}
+{"id": "n043", "prompt": "here is the log from the last run:\n2026-02-01 10:00:01 ERROR failed to open file\n2026-02-01 10:00:02 ERROR retry 1 failed\n2026-02-01 10:00:05 INFO done", "lang": "en", "expect": "none", "alt": [], "tags": ["log", "false-positive"], "note": "a log with no request"}
+{"id": "n044", "prompt": "Traceback (most recent call last):\n  File \"run.py\", line 10, in <module>\n    main()\n  File \"run.py\", line 6, in main\n    raise RuntimeError(\"bad state\")\nRuntimeError: bad state", "lang": "en", "expect": "none", "alt": ["standard"], "tags": ["log", "false-positive"], "note": "a bare traceback: no own words to judge"}
+{"id": "n045", "prompt": "/compact", "lang": "en", "expect": "none", "alt": [], "tags": ["skip"], "note": "slash command"}
+{"id": "n046", "prompt": "/joao-kit:pick-model should I switch to do the security audit?", "lang": "en", "expect": "none", "alt": [], "tags": ["skip"], "note": "skill invocation: the skill does the judging"}
+{"id": "n047", "prompt": "/review the architecture of the whole system", "lang": "en", "expect": "none", "alt": [], "tags": ["skip"], "note": "slash command with deep words"}
+{"id": "n048", "prompt": "<task-notification>agent finished: security audit of the whole codebase</task-notification>", "lang": "en", "expect": "none", "alt": [], "tags": ["skip"], "note": "event turn"}
+{"id": "n049", "prompt": "<system-reminder>the methodology file changed on disk</system-reminder>", "lang": "en", "expect": "none", "alt": [], "tags": ["skip"], "note": "event turn"}
+{"id": "n050", "prompt": "<local-command-stdout>Set model to opus</local-command-stdout>", "lang": "en", "expect": "none", "alt": [], "tags": ["skip"], "note": "event turn"}
+{"id": "n051", "prompt": "<command-name>/model</command-name> <command-args>plan the migration</command-args>", "lang": "en", "expect": "none", "alt": [], "tags": ["skip"], "note": "event turn"}
+{"id": "n052", "prompt": "do it", "lang": "en", "expect": "none", "alt": [], "tags": ["short", "skip"], "note": "follow-up"}
+{"id": "n053", "prompt": "sim, pode fazer", "lang": "pt", "expect": "none", "alt": [], "tags": ["short", "skip"], "note": "follow-up"}
+{"id": "n054", "prompt": "go ahead with option 2", "lang": "en", "expect": "none", "alt": [], "tags": ["skip"], "note": "follow-up"}
+{"id": "n055", "prompt": "não, volta como estava", "lang": "pt", "expect": "none", "alt": [], "tags": ["skip"], "note": "follow-up"}
+{"id": "n056", "prompt": "try again", "lang": "en", "expect": "none", "alt": [], "tags": ["short", "skip"], "note": "follow-up"}
+{"id": "n057", "prompt": "tenta de novo", "lang": "pt", "expect": "none", "alt": [], "tags": ["short", "skip"], "note": "follow-up"}
+{"id": "n058", "prompt": "looks good, ship it", "lang": "en", "expect": "none", "alt": [], "tags": ["skip"], "note": "follow-up"}
+{"id": "n059", "prompt": "can you show me the file again?", "lang": "en", "expect": "none", "alt": [], "tags": ["question"], "note": "lookup"}
+{"id": "n060", "prompt": "mostra o diff", "lang": "pt", "expect": "none", "alt": [], "tags": ["short"], "note": "lookup"}
+{"id": "n061", "prompt": "abre o arquivo de configuração pra eu ver", "lang": "pt", "expect": "none", "alt": [], "tags": ["informal"], "note": "lookup"}
+{"id": "n062", "prompt": "what's the status of the migration?", "lang": "en", "expect": "none", "alt": [], "tags": ["question", "false-positive"], "note": "status question with a deep-sounding noun"}
+{"id": "n063", "prompt": "is the security scan done?", "lang": "en", "expect": "none", "alt": [], "tags": ["question", "false-positive"], "note": "status question with a deep-sounding noun"}
+{"id": "n064", "prompt": "a metodologia ficou boa, obrigado", "lang": "pt", "expect": "none", "alt": [], "tags": ["false-positive"], "note": "thanks with a deep-sounding noun"}
+{"id": "n065", "prompt": "nice, the architecture diagram looks right", "lang": "en", "expect": "none", "alt": [], "tags": ["false-positive"], "note": "approval with a deep-sounding noun"}
+{"id": "n066", "prompt": "I'll think about the strategy tomorrow, let's stop here", "lang": "en", "expect": "none", "alt": [], "tags": ["false-positive"], "note": "no request"}
+{"id": "n067", "prompt": "the tests are green now", "lang": "en", "expect": "none", "alt": [], "tags": ["false-positive"], "note": "statement"}
+{"id": "n068", "prompt": "o erro sumiu", "lang": "pt", "expect": "none", "alt": [], "tags": ["false-positive"], "note": "statement"}
+{"id": "n069", "prompt": "that fixed the bug, thanks", "lang": "en", "expect": "none", "alt": [], "tags": ["false-positive"], "note": "thanks"}
+{"id": "n070", "prompt": "hmm, the script is slow today", "lang": "en", "expect": "none", "alt": [], "tags": ["false-positive"], "note": "remark, no request"}
+{"id": "n071", "prompt": "qual modelo você está usando?", "lang": "pt", "expect": "none", "alt": [], "tags": ["question"], "note": "question about the tool"}
+{"id": "n072", "prompt": "how much context is left?", "lang": "en", "expect": "none", "alt": [], "tags": ["question"], "note": "question about the tool"}
+{"id": "n073", "prompt": "lembra de usar o ambiente virtual", "lang": "pt", "expect": "none", "alt": [], "tags": [], "note": "standing instruction, no task"}
+{"id": "n074", "prompt": "use tabs, not spaces, from now on", "lang": "en", "expect": "none", "alt": [], "tags": [], "note": "standing instruction"}
+{"id": "n075", "prompt": "what are unit tests for?", "lang": "en", "expect": "none", "alt": [], "tags": ["question", "false-positive"], "note": "explanation"}
+{"id": "n076", "prompt": "quantos testes tem no projeto?", "lang": "pt", "expect": "none", "alt": ["chore"], "tags": ["question", "false-positive"], "note": "quick lookup"}
+{"id": "n077", "prompt": "what's in the summary file?", "lang": "en", "expect": "none", "alt": ["chore"], "tags": ["question"], "note": "quick lookup"}
+{"id": "n078", "prompt": "which function is called first when the app starts?", "lang": "en", "expect": "none", "alt": [], "tags": ["question"], "note": "lookup"}
+{"id": "n079", "prompt": "tell me a joke about python", "lang": "en", "expect": "none", "alt": [], "tags": [], "note": "chit-chat"}
+{"id": "n080", "prompt": "bom dia, vamos continuar de onde paramos", "lang": "pt", "expect": "none", "alt": [], "tags": ["skip"], "note": "greeting and follow-up"}
+{"id": "n081", "prompt": "espera", "lang": "pt", "expect": "none", "alt": [], "tags": ["short", "skip"], "note": "one word"}
+{"id": "n082", "prompt": "veja isso <pasted_content id=\"q1\">design the architecture and the migration strategy for the whole system, then audit its security", "lang": "pt", "expect": "none", "alt": ["deep"], "tags": ["paste", "skip"], "note": "unclosed paste tag: the own words are only 'veja isso'"}
+{"id": "n083", "prompt": "<pasted_content id=\"a\">notes <pasted_content id=\"b\">inner notes</pasted_content id=\"b\"> on the architecture, the security audit and the migration strategy</pasted_content id=\"a\"> valeu", "lang": "pt", "expect": "none", "alt": [], "tags": ["paste", "skip"], "note": "nested paste tags: the own word is only 'valeu'"}
+{"id": "n084", "prompt": "fix it", "lang": "en", "expect": "none", "alt": [], "tags": ["short", "skip"], "note": "two words"}
+{"id": "n085", "prompt": "which is faster for membership checks, a list or a set?", "lang": "en", "expect": "none", "alt": [], "tags": ["question", "false-positive"], "note": "small factual question"}
+{"id": "n086", "prompt": "o que mudou entre a versão 1 e a 2 da api?", "lang": "pt", "expect": "none", "alt": ["chore"], "tags": ["question"], "note": "lookup"}
+{"id": "n087", "prompt": "can you remind me what the plan was?", "lang": "en", "expect": "none", "alt": [], "tags": ["question", "false-positive"], "note": "recall, not planning"}
+{"id": "n088", "prompt": "what's the plan for today?", "lang": "en", "expect": "none", "alt": [], "tags": ["question", "false-positive"], "note": "small talk about the plan"}
+{"id": "n089", "prompt": "quando termina o treino?", "lang": "pt", "expect": "none", "alt": [], "tags": ["question"], "note": "status question"}
+{"id": "n090", "prompt": "como faço para ver o log de erros?", "lang": "pt", "expect": "none", "alt": [], "tags": ["question", "false-positive"], "note": "how-to question"}
+{"id": "n091", "prompt": "is there a test for this?", "lang": "en", "expect": "none", "alt": [], "tags": ["question", "false-positive"], "note": "lookup"}
+{"id": "n092", "prompt": "esse erro é normal?", "lang": "pt", "expect": "none", "alt": [], "tags": ["question", "false-positive"], "note": "quick question"}
+{"id": "n093", "prompt": "does the format matter here?", "lang": "en", "expect": "none", "alt": [], "tags": ["question", "false-positive"], "note": "quick question"}
+{"id": "n094", "prompt": "what is the copy constructor used for?", "lang": "en", "expect": "none", "alt": [], "tags": ["question", "false-positive"], "note": "explanation"}
+{"id": "n095", "prompt": "o resumo do artigo já está pronto?", "lang": "pt", "expect": "none", "alt": [], "tags": ["question", "false-positive"], "note": "status question; 'resumo' is a noun"}
+{"id": "n096", "prompt": "¿qué hace esta función?", "lang": "es", "expect": "none", "alt": [], "tags": ["es", "question"], "note": "explanation, Spanish"}
+{"id": "n097", "prompt": "¿cómo ejecuto las pruebas?", "lang": "es", "expect": "none", "alt": [], "tags": ["es", "question"], "note": "how-to, Spanish"}
+{"id": "n098", "prompt": "qu'est-ce que fait ce script ?", "lang": "fr", "expect": "none", "alt": [], "tags": ["fr", "question"], "note": "explanation, French"}
+{"id": "n099", "prompt": "gracias, quedó perfecto", "lang": "es", "expect": "none", "alt": [], "tags": ["es"], "note": "thanks, Spanish"}
+{"id": "n100", "prompt": "merci, c'est bon", "lang": "fr", "expect": "none", "alt": [], "tags": ["fr"], "note": "thanks, French"}
+{"id": "n101", "prompt": "I pasted the wrong file, ignore that", "lang": "en", "expect": "none", "alt": [], "tags": [], "note": "correction"}
+{"id": "n102", "prompt": "run the tests", "lang": "en", "expect": "none", "alt": ["standard", "chore"], "tags": ["false-positive"], "note": "a single command"}
+{"id": "n103", "prompt": "roda os testes", "lang": "pt", "expect": "none", "alt": ["standard", "chore"], "tags": ["false-positive"], "note": "a single command"}
+{"id": "n104", "prompt": "show me the last 20 lines of the error log", "lang": "en", "expect": "none", "alt": ["chore"], "tags": ["false-positive"], "note": "lookup"}
+{"id": "n105", "prompt": "melhora isso", "lang": "pt", "expect": "none", "alt": [], "tags": ["short"], "note": "too vague"}
+{"id": "n106", "prompt": "deixa o código mais bonito", "lang": "pt", "expect": "none", "alt": ["standard", "chore"], "tags": [], "note": "too vague"}
+{"id": "n107", "prompt": "pode dar uma olhada no arquivo utils.py?", "lang": "pt", "expect": "none", "alt": [], "tags": ["question"], "note": "vague"}
+{"id": "n108", "prompt": "o que você acha?", "lang": "pt", "expect": "none", "alt": [], "tags": ["question"], "note": "vague"}
+{"id": "n109", "prompt": "what do you think about this function?", "lang": "en", "expect": "none", "alt": ["standard"], "tags": ["question"], "note": "vague opinion ask"}
+{"id": "n110", "prompt": "any ideas?", "lang": "en", "expect": "none", "alt": [], "tags": ["short"], "note": "vague"}
+{"id": "n111", "prompt": "hmm, não sei se gostei do nome da variável", "lang": "pt", "expect": "none", "alt": [], "tags": [], "note": "remark"}
+{"id": "n112", "prompt": "I want the report by Friday", "lang": "en", "expect": "none", "alt": [], "tags": [], "note": "remark"}
+{"id": "n113", "prompt": "the client said the list is wrong", "lang": "en", "expect": "none", "alt": [], "tags": ["false-positive"], "note": "remark; 'list' is a noun"}
+{"id": "n114", "prompt": "lembrete: amanhã tem reunião sobre a estratégia do projeto", "lang": "pt", "expect": "none", "alt": [], "tags": ["false-positive"], "note": "reminder with a deep-sounding noun"}
+{"id": "n115", "prompt": "save this to memory: we always plan the sprint on Mondays", "lang": "en", "expect": "none", "alt": ["chore"], "tags": ["false-positive"], "note": "memory note"}
+{"id": "n116", "prompt": "how long would a full security audit take?", "lang": "en", "expect": "none", "alt": ["deep"], "tags": ["question", "false-positive"], "note": "estimate question"}
+{"id": "n117", "prompt": "que horas são aí?", "lang": "pt", "expect": "none", "alt": [], "tags": ["question"], "note": "chit-chat"}
+{"id": "n118", "prompt": "o que é uma tese de doutorado sanduíche?", "lang": "pt", "expect": "none", "alt": [], "tags": ["question", "false-positive"], "note": "definition; 'tese' is not thesis work"}
+{"id": "n119", "prompt": "what's the root cause analysis template called again?", "lang": "en", "expect": "none", "alt": [], "tags": ["question", "false-positive"], "note": "recall question with a deep phrase"}
+{"id": "n120", "prompt": "vc lembra qual era o nome do arquivo de testes?", "lang": "pt", "expect": "none", "alt": [], "tags": ["question", "informal", "false-positive"], "note": "recall question"}

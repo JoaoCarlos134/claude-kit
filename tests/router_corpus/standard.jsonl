@@ -1,0 +1,92 @@
+{"id": "s001", "prompt": "fix the failing test in parser.py and add a unit test", "lang": "en", "expect": "standard", "alt": [], "tags": ["sanity"], "note": "bug fix with a test; pre-existing test case"}
+{"id": "s002", "prompt": "corrija o bug no script de coleta", "lang": "pt", "expect": "standard", "alt": [], "tags": ["sanity"], "note": "bug fix; pre-existing test case"}
+{"id": "s003", "prompt": "can you add a date filter to the Streamlit page?", "lang": "en", "expect": "standard", "alt": [], "tags": ["sanity"], "note": "small feature; pre-existing test case"}
+{"id": "s004", "prompt": "implement the export command", "lang": "en", "expect": "standard", "alt": [], "tags": ["sanity"], "note": "feature; pre-existing test case"}
+{"id": "s005", "prompt": "add a --verbose flag to the cli that prints each request", "lang": "en", "expect": "standard", "alt": [], "tags": [], "note": "small feature"}
+{"id": "s006", "prompt": "adicione um botão de download do csv na página de resultados", "lang": "pt", "expect": "standard", "alt": [], "tags": ["false-positive"], "note": "small feature; 'csv' is not a conversion"}
+{"id": "s007", "prompt": "crie uma função que valida o formato da data informada no formulário", "lang": "pt", "expect": "standard", "alt": [], "tags": ["false-positive"], "note": "small feature; 'formato' is not a reformat"}
+{"id": "s008", "prompt": "write a script that downloads the daily weather file and saves it under data/raw", "lang": "en", "expect": "standard", "alt": [], "tags": [], "note": "script"}
+{"id": "s009", "prompt": "escreva um script que lê os csv da pasta e gera um gráfico de linhas por mês", "lang": "pt", "expect": "standard", "alt": [], "tags": [], "note": "script"}
+{"id": "s010", "prompt": "the login form crashes when the password field is empty, fix it", "lang": "en", "expect": "standard", "alt": [], "tags": [], "note": "bug fix"}
+{"id": "s011", "prompt": "o gráfico não aparece quando o filtro retorna zero linhas, conserta isso", "lang": "pt", "expect": "standard", "alt": [], "tags": [], "note": "bug fix"}
+{"id": "s012", "prompt": "add pagination to the /items endpoint, 50 per page", "lang": "en", "expect": "standard", "alt": [], "tags": [], "note": "small feature"}
+{"id": "s013", "prompt": "write unit tests for the date parsing helper", "lang": "en", "expect": "standard", "alt": [], "tags": [], "note": "tests"}
+{"id": "s014", "prompt": "escreva testes para a função de normalização", "lang": "pt", "expect": "standard", "alt": [], "tags": [], "note": "tests"}
+{"id": "s015", "prompt": "the function returns None for negative numbers, it should raise ValueError", "lang": "en", "expect": "standard", "alt": [], "tags": ["vocab"], "note": "bug fix stated without a fix verb"}
+{"id": "s016", "prompt": "add a dark mode toggle to the settings component", "lang": "en", "expect": "standard", "alt": [], "tags": [], "note": "UI feature"}
+{"id": "s017", "prompt": "make the table sortable by clicking on the column header", "lang": "en", "expect": "standard", "alt": [], "tags": ["vocab", "false-positive"], "note": "UI feature; 'sortable' is not a sort chore"}
+{"id": "s018", "prompt": "adicione uma coluna de total na tabela do relatório", "lang": "pt", "expect": "standard", "alt": [], "tags": [], "note": "small feature"}
+{"id": "s019", "prompt": "handle the case where the config file is missing and show a clear message", "lang": "en", "expect": "standard", "alt": [], "tags": ["vocab"], "note": "error handling feature"}
+{"id": "s020", "prompt": "trate o caso em que a API devolve lista vazia", "lang": "pt", "expect": "standard", "alt": [], "tags": ["vocab", "false-positive"], "note": "error handling; 'lista' is data"}
+{"id": "s021", "prompt": "update the README to document the new export option", "lang": "en", "expect": "standard", "alt": ["chore"], "tags": [], "note": "docs that need the code"}
+{"id": "s022", "prompt": "add input validation to the signup form: valid address format and a minimum length", "lang": "en", "expect": "standard", "alt": [], "tags": ["false-positive"], "note": "feature; 'format' is not a reformat"}
+{"id": "s023", "prompt": "implemente o cache em disco para as respostas da busca", "lang": "pt", "expect": "standard", "alt": [], "tags": [], "note": "feature"}
+{"id": "s024", "prompt": "add a retry with backoff to the download helper", "lang": "en", "expect": "standard", "alt": [], "tags": ["vocab"], "note": "feature"}
+{"id": "s025", "prompt": "o script quebra com isso:\nTraceback (most recent call last):\n  File \"coleta.py\", line 42, in <module>\n    df[\"data\"] = pd.to_datetime(df[\"date\"])\nKeyError: 'date'", "lang": "pt", "expect": "standard", "alt": [], "tags": ["log"], "note": "bug with a traceback outside paste tags"}
+{"id": "s026", "prompt": "this test fails on CI, please fix:\nFAILED tests/test_io.py::test_roundtrip - AssertionError: assert 'a;b' == 'a,b'", "lang": "en", "expect": "standard", "alt": [], "tags": ["log"], "note": "bug fix with a log line"}
+{"id": "s027", "prompt": "add a progress bar to the batch conversion loop", "lang": "en", "expect": "standard", "alt": [], "tags": ["vocab"], "note": "small feature"}
+{"id": "s028", "prompt": "crie um endpoint que devolve as últimas 10 medições", "lang": "pt", "expect": "standard", "alt": [], "tags": [], "note": "small feature"}
+{"id": "s029", "prompt": "make the plot use a log scale on the y axis and add a legend", "lang": "en", "expect": "standard", "alt": [], "tags": ["vocab"], "note": "plot change"}
+{"id": "s030", "prompt": "muda a cor do botao de salvar pra verde e aumenta a fonte", "lang": "pt", "expect": "standard", "alt": ["chore"], "tags": ["informal", "vocab"], "note": "small UI change"}
+{"id": "s031", "prompt": "add logging to the sync job so we can see how long each step takes", "lang": "en", "expect": "standard", "alt": [], "tags": ["vocab"], "note": "small feature"}
+{"id": "s032", "prompt": "refactor the parse function to use a dataclass instead of a dict", "lang": "en", "expect": "standard", "alt": [], "tags": [], "note": "single-function refactor"}
+{"id": "s033", "prompt": "extract the duplicated validation code into a helper and use it in both views", "lang": "en", "expect": "standard", "alt": [], "tags": ["false-positive"], "note": "refactor; 'extract' here is not data extraction"}
+{"id": "s034", "prompt": "corrige o erro q aparece qdo clico em salvar sem preencher o nome", "lang": "pt", "expect": "standard", "alt": [], "tags": ["informal"], "note": "bug fix, chat abbreviations"}
+{"id": "s035", "prompt": "implemnt a function to merge two sorted lists", "lang": "en", "expect": "standard", "alt": [], "tags": ["typo"], "note": "feature, typo in the verb"}
+{"id": "s036", "prompt": "adcionar um filtro por data na pagina de relatorios", "lang": "pt", "expect": "standard", "alt": [], "tags": ["typo"], "note": "feature, typo in the verb"}
+{"id": "s037", "prompt": "o botao de exportar nao funciona no firefox, arruma pfv", "lang": "pt", "expect": "standard", "alt": [], "tags": ["informal", "vocab"], "note": "bug fix, informal"}
+{"id": "s038", "prompt": "add an option to skip the header row when importing", "lang": "en", "expect": "standard", "alt": [], "tags": [], "note": "small feature"}
+{"id": "s039", "prompt": "write a small python script to rename photos by their exif date", "lang": "en", "expect": "standard", "alt": ["chore"], "tags": ["false-positive"], "note": "writing a script; 'rename' is what the script does"}
+{"id": "s040", "prompt": "crie um script que converte todos os xlsx da pasta em csv", "lang": "pt", "expect": "standard", "alt": ["chore"], "tags": ["false-positive"], "note": "writing a script; the conversion is what it does"}
+{"id": "s041", "prompt": "write a function that formats a number as currency with two decimals", "lang": "en", "expect": "standard", "alt": [], "tags": ["false-positive"], "note": "feature; 'formats' is the behaviour"}
+{"id": "s042", "prompt": "add a test that counts the rows after the merge and compares with the input", "lang": "en", "expect": "standard", "alt": [], "tags": ["false-positive"], "note": "test; 'counts' is the behaviour"}
+{"id": "s043", "prompt": "make the copy button copy the code block to the clipboard", "lang": "en", "expect": "standard", "alt": [], "tags": ["false-positive"], "note": "UI feature; 'copy' is the behaviour"}
+{"id": "s044", "prompt": "the list view shows duplicated items after a refresh, fix it", "lang": "en", "expect": "standard", "alt": [], "tags": ["false-positive"], "note": "bug fix; 'list view' is a component"}
+{"id": "s045", "prompt": "implement the summary card component that shows the three totals", "lang": "en", "expect": "standard", "alt": [], "tags": ["false-positive"], "note": "UI feature; 'summary' is a name"}
+{"id": "s046", "prompt": "agrega un botón para exportar el informe en pdf", "lang": "es", "expect": "standard", "alt": [], "tags": ["es"], "note": "feature, Spanish"}
+{"id": "s047", "prompt": "corrige el error que aparece al guardar el formulario vacío", "lang": "es", "expect": "standard", "alt": [], "tags": ["es"], "note": "bug fix, Spanish"}
+{"id": "s048", "prompt": "ajoute un filtre par date sur la page des résultats", "lang": "fr", "expect": "standard", "alt": [], "tags": ["fr"], "note": "feature, French"}
+{"id": "s049", "prompt": "corrige le bug dans le script d'import", "lang": "fr", "expect": "standard", "alt": [], "tags": ["fr"], "note": "bug fix, French"}
+{"id": "s050", "prompt": "add a healthcheck endpoint that returns the app version", "lang": "en", "expect": "standard", "alt": [], "tags": [], "note": "small feature"}
+{"id": "s051", "prompt": "create a dockerfile for the api service", "lang": "en", "expect": "standard", "alt": [], "tags": ["vocab"], "note": "small config task"}
+{"id": "s052", "prompt": "adicione um parâmetro de timeout na função de download", "lang": "pt", "expect": "standard", "alt": [], "tags": [], "note": "small feature"}
+{"id": "s053", "prompt": "the dropdown doesn't close when I click outside, fix that", "lang": "en", "expect": "standard", "alt": [], "tags": ["vocab"], "note": "bug fix"}
+{"id": "s054", "prompt": "write the github actions workflow that runs pytest on push", "lang": "en", "expect": "standard", "alt": [], "tags": ["vocab"], "note": "CI config"}
+{"id": "s055", "prompt": "add a column with the 7-day moving average to the dashboard table", "lang": "en", "expect": "standard", "alt": [], "tags": [], "note": "small feature"}
+{"id": "s056", "prompt": "crie um componente React para o card de usuário com avatar e nome", "lang": "pt", "expect": "standard", "alt": [], "tags": [], "note": "UI component"}
+{"id": "s057", "prompt": "make the script accept the input path as a command-line argument", "lang": "en", "expect": "standard", "alt": [], "tags": ["vocab"], "note": "small feature"}
+{"id": "s058", "prompt": "fix the off-by-one in the pagination helper", "lang": "en", "expect": "standard", "alt": [], "tags": ["vocab"], "note": "bug fix"}
+{"id": "s059", "prompt": "atualize a documentação da função calcula_media com os novos parâmetros", "lang": "pt", "expect": "standard", "alt": ["chore"], "tags": [], "note": "docs that need the code"}
+{"id": "s060", "prompt": "faz um fix no handler de upload, ta dando 500 quando o file é grande", "lang": "mix", "expect": "standard", "alt": [], "tags": ["mixed-lang", "informal"], "note": "bug fix, PT/EN mix"}
+{"id": "s061", "prompt": "adiciona um loading spinner no submit do form", "lang": "mix", "expect": "standard", "alt": [], "tags": ["mixed-lang"], "note": "UI feature, PT/EN mix"}
+{"id": "s062", "prompt": "review this small diff before I commit", "lang": "en", "expect": "standard", "alt": [], "tags": ["false-positive"], "note": "small review; 'commit' is not the ask"}
+{"id": "s063", "prompt": "revise a função abaixo e diga se tem algum problema:\ndef media(xs):\n    return sum(xs) / len(xs)", "lang": "pt", "expect": "standard", "alt": ["none"], "tags": [], "note": "small code review"}
+{"id": "s064", "prompt": "add a unit test for the edge case where the list is empty", "lang": "en", "expect": "standard", "alt": [], "tags": ["false-positive"], "note": "test; 'list' is data"}
+{"id": "s065", "prompt": "os testes do módulo de exportação estão quebrando depois da última mudança, arruma", "lang": "pt", "expect": "standard", "alt": [], "tags": [], "note": "bug fix"}
+{"id": "s066", "prompt": "implement a dark theme for the dashboard", "lang": "en", "expect": "standard", "alt": [], "tags": [], "note": "UI feature"}
+{"id": "s067", "prompt": "o formulário deixa enviar com o campo vazio, precisa bloquear", "lang": "pt", "expect": "standard", "alt": [], "tags": ["vocab"], "note": "bug stated without any keyword of the old list"}
+{"id": "s068", "prompt": "the page takes forever to load because it fetches every row; make it load only the visible ones", "lang": "en", "expect": "standard", "alt": ["deep"], "tags": ["vocab"], "note": "scoped performance fix"}
+{"id": "s069", "prompt": "plot the residuals of the model against the fitted values and save the figure", "lang": "en", "expect": "standard", "alt": [], "tags": ["vocab"], "note": "plot script"}
+{"id": "s070", "prompt": "add a notebook cell that loads the parquet file and prints the schema", "lang": "en", "expect": "standard", "alt": ["chore"], "tags": ["vocab"], "note": "small code"}
+{"id": "s071", "prompt": "escreva uma query sql que traz o total de vendas por mês", "lang": "pt", "expect": "standard", "alt": [], "tags": ["vocab"], "note": "query"}
+{"id": "s072", "prompt": "write a regex that matches dates like 2026-01-31 and add it to the validator", "lang": "en", "expect": "standard", "alt": ["chore"], "tags": [], "note": "small code"}
+{"id": "s073", "prompt": "o campo de busca precisa ignorar acentos e maiúsculas", "lang": "pt", "expect": "standard", "alt": [], "tags": ["vocab", "false-positive"], "note": "feature; 'maiusculas' is the behaviour"}
+{"id": "s074", "prompt": "make the cli print a friendly message instead of the stack trace when the file is not found", "lang": "en", "expect": "standard", "alt": [], "tags": [], "note": "small feature"}
+{"id": "s075", "prompt": "add caching to the function that loads the holidays table so it only reads the file once", "lang": "en", "expect": "standard", "alt": [], "tags": ["vocab"], "note": "small feature"}
+{"id": "s076", "prompt": "termina de implementar a função exportar_pdf que ficou pela metade", "lang": "pt", "expect": "standard", "alt": [], "tags": ["informal"], "note": "feature"}
+{"id": "s077", "prompt": "fix the error below\nTypeError: unsupported operand type(s) for +: 'int' and 'str'", "lang": "en", "expect": "standard", "alt": [], "tags": ["log"], "note": "bug fix with an error line"}
+{"id": "s078", "prompt": "atualiza o teste que quebrou com a mudança do nome da coluna", "lang": "pt", "expect": "standard", "alt": ["chore"], "tags": [], "note": "test fix"}
+{"id": "s079", "prompt": "parametrize the test so it runs for csv and json inputs", "lang": "en", "expect": "standard", "alt": [], "tags": ["false-positive"], "note": "test; csv/json are inputs, not a conversion"}
+{"id": "s080", "prompt": "add the security headers to the nginx config", "lang": "en", "expect": "standard", "alt": ["chore"], "tags": ["false-positive", "mixed-intent"], "note": "config edit; 'security' names the headers"}
+{"id": "s081", "prompt": "update the strategy pattern implementation to add a new strategy class for csv export", "lang": "en", "expect": "standard", "alt": [], "tags": ["false-positive", "mixed-intent"], "note": "feature; 'strategy' is a design-pattern name"}
+{"id": "s082", "prompt": "add a test for the migration helper", "lang": "en", "expect": "standard", "alt": [], "tags": ["false-positive", "mixed-intent"], "note": "test; 'migration' names the helper"}
+{"id": "s083", "prompt": "write a migration script to add the new column to the users table", "lang": "en", "expect": "standard", "alt": ["deep"], "tags": ["false-positive", "mixed-intent"], "note": "a one-column schema migration is standard work"}
+{"id": "s084", "prompt": "crie a migração do banco para a nova tabela de pedidos", "lang": "pt", "expect": "standard", "alt": ["deep"], "tags": ["false-positive", "mixed-intent"], "note": "single schema migration"}
+{"id": "s085", "prompt": "add more layers to the model config and rerun the training script", "lang": "en", "expect": "standard", "alt": ["chore"], "tags": ["vocab"], "note": "near the seed prompt, but a simple action"}
+{"id": "s086", "prompt": "rode o experimento com 4 camadas e salve as métricas em um csv", "lang": "pt", "expect": "standard", "alt": ["chore"], "tags": ["vocab"], "note": "run and save; no analysis asked"}
+{"id": "s087", "prompt": "implement the plan we agreed on for the export module", "lang": "en", "expect": "standard", "alt": ["none"], "tags": ["false-positive"], "note": "implementation; 'plan' is not a planning ask"}
+{"id": "s088", "prompt": "add a function to compute the statistical summary (mean, median, std) of each column", "lang": "en", "expect": "standard", "alt": [], "tags": ["false-positive", "mixed-intent"], "note": "small feature; 'statistical' is a noun phrase"}
+{"id": "s089", "prompt": "o endpoint de login devolve 500 quando o corpo vem vazio; corrija e adicione um teste", "lang": "pt", "expect": "standard", "alt": [], "tags": [], "note": "bug fix with test"}
+{"id": "s090", "prompt": "there's a bug in the csv export: the header row is written twice", "lang": "en", "expect": "standard", "alt": [], "tags": ["false-positive"], "note": "bug report; 'csv export' is the feature"}
+{"id": "s091", "prompt": "arregla el test que falla en el módulo de fechas", "lang": "es", "expect": "standard", "alt": [], "tags": ["es"], "note": "bug fix, Spanish"}
+{"id": "s092", "prompt": "bota um try/except em volta da leitura do arquivo pra nao quebrar se ele nao existir", "lang": "pt", "expect": "standard", "alt": [], "tags": ["informal", "vocab"], "note": "small change, informal"}
