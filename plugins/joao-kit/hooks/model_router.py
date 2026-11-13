@@ -7,9 +7,10 @@ chores to haiku-worker, standard implementation to sonnet-worker and the hard st
 opus-thinker (each gets the project's memory through context_bridge.py), and tells the user when an
 `/effort` or `/model` change is the better move, with what the switch would cost.
 
-Free and offline: router_classifier.py scores the user's own words (English and Portuguese), no model
+Free and offline: router_classifier.py scores the user's own words (English and Portuguese, some Spanish and French), no model
 call. It labels only what it is fairly sure of and stays silent otherwise (on prompts from a new author it
-catches about 56% of deep and 64% of chore prompts, and a label it gives is right 84-88% of the time).
+catches 56% of deep and 64% of chore prompts; its deep and chore labels are right 84-88% of the time,
+standard labels 79%).
 Silent too when the setup fits, when the prompt is too short, and on event turns Claude Code starts.
 The user sees a given hint once per session (again only REPEAT_AFTER prompts later); Claude gets it on
 every mismatched prompt, because acting on it is how the routing happens.
@@ -23,14 +24,18 @@ import tempfile
 import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import router_classifier  # noqa: E402
-from model_state import (  # noqa: E402
-    EFFORT_RANK, FAMILY_RANK, display, epoch, family, last_turn, switch_cost,
-)
+try:
+    import router_classifier
+    from model_state import (
+        EFFORT_RANK, FAMILY_RANK, display, epoch, family, last_turn, switch_cost,
+    )
+except Exception:  # a half-updated plugin must not break the user's prompt
+    if __name__ == "__main__":
+        sys.exit(0)
+    raise
 
 REPEAT_AFTER = 15
 BIG_CONTEXT = 40_000  # below this, doing standard work in place costs little; don't push delegation
-
 
 
 def classify(prompt):

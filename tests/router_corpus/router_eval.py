@@ -1,6 +1,6 @@
 """Score a prompt classifier against the labeled corpus in this folder.
 
-    python tests/router_corpus/router_eval.py [split] [--errors] [--check]
+    python tests/router_corpus/router_eval.py [split] [--errors]
 
 scores the plugin's router_classifier; tests/test_router_corpus.py runs the regression check in CI.
 
@@ -22,7 +22,7 @@ import os
 import time
 
 TIERS = ("chore", "standard", "deep", "none")
-# What the acceptance criteria ask for, checked by `eval --check` (and so by CI).
+# The acceptance criteria; tests/test_router_corpus.py checks them on every split but blind2.
 MIN_RECALL = {"deep": 0.90, "chore": 0.85}
 MAX_FALSE_NUDGE = 0.03
 
@@ -124,7 +124,7 @@ def failed_criteria(result):
     return failed
 
 
-def run(classify, corpus_dir=None, split="all", show_errors=False, check=False):
+def run(classify, corpus_dir=None, split="all", show_errors=False):
     """Print the report for one split (or each of them) and return the exit code."""
     rows = load(corpus_dir)
     if not rows:
@@ -132,18 +132,17 @@ def run(classify, corpus_dir=None, split="all", show_errors=False, check=False):
         return 2
     found = sorted({r["split"] for r in rows if r["split"].startswith("blind")})
     names = ("tune", "holdout", *found) if split == "all" else (split,)
-    code = 0
+    unknown = [n for n in names if not any(r["split"] == n for r in rows)]
+    if unknown:
+        print(f"no such split: {', '.join(unknown)} (have: {', '.join(sorted({r['split'] for r in rows}))})")
+        return 2
     for name in names:
         part = [r for r in rows if r["split"] == name]
-        if not part:
-            continue
         result = evaluate(classify, part)
         print(format_report(name, result, show_errors))
         missed = failed_criteria(result)
         print("criteria: " + ("met" if not missed else "MISSED - " + "; ".join(missed)) + "\n")
-        if check and missed:
-            code = 1
-    return code
+    return 0
 
 
 if __name__ == "__main__":
@@ -152,4 +151,4 @@ if __name__ == "__main__":
     import router_classifier
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     sys.exit(run(router_classifier.classify, split=args[0] if args else "all",
-                 show_errors="--errors" in sys.argv, check="--check" in sys.argv))
+                 show_errors="--errors" in sys.argv))

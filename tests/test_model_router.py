@@ -266,4 +266,3 @@ def test_state_script_prices_a_switch_while_the_cache_is_warm(tmp_path):
                      [assistant(model="claude-opus-5-5", read=160_000, timestamp=now)])
     _, _, text = run_hook("model_state.py", {}, "warm", "high", env={"CLAUDE_CONFIG_DIR": str(tmp_path)})
     assert "switch_re-cache" in text and "sonnet $0.66" in text and "haiku $0.17" in text
-

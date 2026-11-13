@@ -15,7 +15,7 @@ How the score works (`analyze(prompt)` returns every match, score and the reason
 3. A topic noun says where the work happens, not what it is: "fix the typo in the methodology section"
    is a chore. So topics count only when the prompt also asks for thinking (a strong, intent, depth or
    decision match) or names no chore and no action verb at all.
-4. Structure (the `structural` switch; off = keywords only, kept for the comparison lab):
+4. Structure (the `structural` switch; off = keywords only, for comparing the two in router_eval):
    - lead: the job is usually named in the first words, so a chore pattern, a specific action verb or an
      intent verb that starts within LEAD_CHARS of the start adds LEAD_BONUS to its tier;
    - a prompt that already has deep evidence (>= 1) gets up to STRUCTURE_CAP more for being long,
@@ -35,6 +35,7 @@ import re
 import unicodedata
 
 CHORE_MAX_WORDS = 80
+MAX_CHARS = 8_000  # the ask is in the first words; scanning a huge unmarked paste only costs time
 MIN_WORDS = 3
 LEAD_CHARS = 20
 LEAD_BONUS = 1.0
@@ -362,6 +363,7 @@ def analyze(prompt, structural=True, fuzzy=True):
         result["reason"] = "event turn started by Claude Code, not a request"
         return result
     raw, attached = own_words(prompt)
+    raw = raw[:MAX_CHARS]
     text = re.sub(r"\s+", " ", plain(raw)).strip()
     if fuzzy:
         text, result["typos"] = fix_typos(text)
@@ -385,7 +387,8 @@ def analyze(prompt, structural=True, fuzzy=True):
     for tier, kind, pattern, weight, leads in COMPILED:
         m, opens = None, False
         for found in pattern.finditer(body):
-            if tier == "chore" and SUBORDINATE.search(body[:found.start()]):
+            # SUBORDINATE is anchored at the end: the 40 characters before the match are enough
+            if tier == "chore" and SUBORDINATE.search(body[max(0, found.start() - 40):found.start()]):
                 continue
             m = m or found
             if structural and leads and any(0 <= found.start() - s < LEAD_CHARS for s in starts):

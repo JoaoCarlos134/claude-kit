@@ -43,15 +43,19 @@ to `~/.claude/CLAUDE.md` by hand or by the NEW_MACHINE.md prompt.
 - **2026-11-13 — Router 0.3.0: a scored classifier that stays silent when unsure; no model call, no
   fallback note.** Measured on 652 labeled prompts (`tests/router_corpus`); `blind2.jsonl` (100 prompts by
   an Opus agent that never saw the classifier, scored once on frozen code) is the honest number: deep
-  recall 56%, chore recall 64%, false-nudge 2% (0.2.0 regexes on the first blind set: 32% / 56% / 4%).
-  The targets (90% / 85%) are met only on sets that were used for tuning: keyword rules overfit, every
-  new author brings new words. Rejected, with numbers: stdlib naive Bayes (blind2 76% / 88% but 20% false
-  nudges); a Haiku judge through a trimmed `claude -p` (about 1,200 tokens, a second plan request and
+  recall 56%, chore recall 64%, false-nudge 2% (the 0.2.0 regexes on the same set: 28% / 44% / 10%).
+  The targets (90% / 85%) are met only on prompts I wrote myself (tune, holdout) and on `blind.jsonl`,
+  which was used to tune v2: keyword rules overfit, every new author brings new words. blind2 stays honest
+  only until someone tunes on its misses (the CI test and `--errors` print them); the next honest number
+  then needs a blind3 from a model that hasn't seen the classifier. Rejected, with numbers: stdlib naive
+  Bayes (blind2 76% / 88% but 20% false nudges; tried without an abstain margin, which might still save
+  it); a Haiku judge through a trimmed `claude -p` (about 1,200 tokens, a second plan request and
   3.5 s on every prompt, still deep 57-68%; untrimmed it is ~29,500 tokens); a ~50-token note on
   unlabeled prompts asking the session model to judge itself (Sonnet delegated 0 of 8 with or without
   it, and on the default Sonnet setup its only move is opus-thinker, which spends more tokens, not less).
-  Why keep a router at all: a label it gives is right 84-88% of the time, and a wrong hint is worse than
-  none.
+  Why keep a router at all: its deep and chore labels are right 84-88% of the time (standard 79%), and a
+  wrong hint is worse than none. Also supersedes the 2026-11-11 rule that questions get no label: a
+  question now gets deep when it has two deep matches or 15+ words.
 
 - **2026-11-11 — Default model Sonnet 5.5 at medium effort (was Opus at high), in `global/settings.json`
   and on this machine.** Why: the session itself keeps the full context and memory, at half Opus 5.5's

@@ -19,7 +19,9 @@ BLIND2_FLOOR = {"deep": 0.56, "chore": 0.64}  # 0.3.0, scored once on a frozen c
 
 
 def result(split):
-    return router_eval.evaluate(router_classifier.classify, [r for r in ROWS if r["split"] == split])
+    rows = [r for r in ROWS if r["split"] == split]
+    assert rows, f"split {split} is empty"  # a renamed corpus file must not pass silently
+    return router_eval.evaluate(router_classifier.classify, rows)
 
 
 @pytest.mark.parametrize("split", ["tune", "holdout", "blind"])
