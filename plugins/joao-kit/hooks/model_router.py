@@ -7,8 +7,10 @@ chores to haiku-worker, standard implementation to sonnet-worker and the hard st
 opus-thinker (each gets the project's memory through context_bridge.py), and tells the user when an
 `/effort` or `/model` change is the better move, with what the switch would cost.
 
-Free and offline: keyword heuristics in English and Portuguese, no model call. Silent when the setup
-fits, when the prompt is too short or unclear to judge, and on event turns Claude Code starts by itself.
+Free and offline: router_classifier.py scores the user's own words (English and Portuguese), no model
+call. Silent when the setup fits, when the prompt is too short, and on event turns Claude Code starts by
+itself. When the classifier can't label a prompt of UNSURE_MIN_WORDS or more, Claude gets a short note
+to judge it itself (unsure_note) - the classifier is kept for the cases it is sure of.
 The user sees a given hint once per session (again only REPEAT_AFTER prompts later); Claude gets it on
 every mismatched prompt, because acting on it is how the routing happens.
 """
@@ -19,107 +21,51 @@ import re
 import sys
 import tempfile
 import time
-import unicodedata
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import router_classifier  # noqa: E402
 from model_state import (  # noqa: E402
     EFFORT_RANK, FAMILY_RANK, display, epoch, family, last_turn, switch_cost,
 )
 
 REPEAT_AFTER = 15
 BIG_CONTEXT = 40_000  # below this, doing standard work in place costs little; don't push delegation
-CHORE_MAX_WORDS = 80
+UNSURE_MIN_WORDS = 5  # shorter unlabeled prompts ("push it", "yes go ahead") carry on as they are
 
-# (pattern, weight) on lower-case text without accents. Verbs that name the job weigh 1; nouns that
-# only say "this is about code" weigh 0.5; signs of deep work weigh 2, so one is enough to win.
-# Questions ("what is", "why", "o que e", "explain") get no label on purpose: they are answered in
-# place, and "what is the best way to model X" is no chore. Bare "convert" is out too ("convert the
-# training loop" is a refactor); data-format conversion is caught by "to csv/json/...".
-CHORE = [(p, 1) for p in [
-    r"\brenam(e|ing)\b", r"\brenome(ar|ie|ia)\b", r"\btypos?\b", r"\bspelling\b", r"\bortografi",
-    r"\berros? de digitacao\b", r"\bre-?format", r"\bformat(ting|e|ar|acao)?\b", r"\bindent",
-    r"\btranslat", r"\btraduz", r"\btraducao\b", r"\bextract\b",
-    r"\bextra(ir|ia)\b", r"\bsort\b", r"\borden(ar|e)\b", r"\bbump\b", r"\bsummari[sz]e\b",
-    r"\bresum(a|ir|o)\b", r"\blist (all|the|every)\b", r"\blist(e|ar)\b", r"\bcapitali[sz]",
-    r"\b(upper|lower)case\b", r"\bmaiuscul", r"\bminuscul", r"\bregex\b",
-    r"\bcommit (this|these|it|that|the changes|everything)\b", r"\bfa[cz]a (o )?commit\b",
-    r"\bcommit(a|e)\b", r"\bgit (status|log|pull|push)\b", r"\bcopy\b", r"\bcopi(ar|e)\b",
-    r"\bmove (the|this|these) files?\b", r"\b(to|into|para) (csv|json|yaml|markdown|md|tabela)\b",
-    r"\b(add|update) (a |the )?(badge|link|date|year|copyright)s?\b", r"\bcount (the|how)\b",
-]]
-STANDARD = [(p, 1) for p in [
-    r"\bimplement", r"\bimplement(ar|e)\b", r"\badicion(ar|e)\b", r"\bcri(ar|e) (um|uma)\b",
-    r"\badd (a |an |the )?(new )?([\w-]+ )?(feature|endpoint|option|flag|command|test|button|page|component"
-    r"|column|filter|field|parameter|argument|check)", r"\bbugs?\b", r"\bcorrig(ir|a|e)\b",
-    r"\bconsert", r"\berrors?\b", r"\berros?\b(?! de digitacao)", r"\bfail(s|ing|ed|ure)?\b",
-    r"\bfalh(a|ando|ou)\b", r"\bbroken\b", r"\bcrash", r"\bwrite (a |the )?tests?\b",
-    r"\bunit tests?\b", r"\btestes?\b", r"\brefactor", r"\brefator", r"\bdebug", r"\bdepur",
-    r"\bupdate (the )?(readme|docs|documentation|roadmap|claude\.md)\b",
-    r"\breview (this|the|my)\b", r"\brevis(ar|e|ao)\b",
-]] + [(p, 0.5) for p in [
-    r"\bfunctions?\b", r"\bfuncao\b", r"\bendpoint\b", r"\bcomponents?\b", r"\bscripts?\b",
-    r"\bcli\b", r"\bstreamlit\b", r"\breact\b", r"\bmodule\b", r"\bmodulo\b", r"\bclass\b",
-]]
-DEEP = [(p, 2) for p in [
-    r"\barchitect", r"\barquitet", r"\bsystem design\b",
-    r"\bdesign (the|a|an|our|my) (system|architecture|schema|api|pipeline|data model|database)\b",
-    r"\brefactor(ing)? (the whole|across|all|entire|everything|the codebase|the project)\b",
-    r"\brefatora(r|cao)? (todo|toda|geral|completa)\b", r"\bmethodolog", r"\bmetodolog",
-    r"\bleakage\b", r"\bvazamento\b", r"\bdata leak", r"\bbenchmark design\b",
-    r"\bexperiment(al)? design\b", r"\bdesenho experimental\b", r"\bablation\b", r"\bsecurity\b",
-    r"\bseguranca\b", r"\bvulnerab", r"\bthreat model", r"\baudit\b", r"\bauditori",
-    r"\broot cause\b", r"\bcausa raiz\b", r"\bintermittent", r"\bintermitente\b", r"\bflaky\b",
-    r"\brace condition\b", r"\bdeadlock\b", r"\bconcurren", r"\bconcorrencia\b", r"\bmemory leak\b",
-    r"\bstrateg", r"\bestrategi", r"\btrade-?offs?\b", r"\bpros (and|e) contras?\b",
-    r"\bcompar(e|ar|ing) (the )?(approaches|options|alternatives|abordagens|alternativas|opcoes)\b",
-    r"\bthesis\b", r"\btese\b", r"\bdissertac", r"\btcc\b", r"\bmestrado\b", r"\brebuttal\b",
-    r"\bresposta aos revisores\b", r"\bmigrat(e|ion)\b", r"\bmigra(r|cao)\b", r"\bproof\b",
-    r"\bderiv(e|ation|ar)\b", r"\bstatistical(ly)?\b", r"\bestatistic", r"\bsignifican",
-    r"\bdiverged\b", r"\breconcil", r"\bfrom scratch\b", r"\bdo zero\b", r"\bend[- ]to[- ]end\b",
-    r"\bwhole (repo|codebase|project|system)\b", r"\bplan (the|a|an|out|how)\b", r"\bplanej",
-]]
-EVENT_PROMPT = re.compile(
-    r"^\s*<(side-sessions-event|ci-monitor-event|task-notification|system-reminder|command-name"
-    r"|local-command|bash-input|bash-stdout|scheduled-task)")
-PASTED = re.compile(r"<pasted_content[^>]*>.*?</pasted_content[^>]*>", re.S)
-# Opens with a question word ("can you ..." / "pode ..." requests are not questions here).
-QUESTION = re.compile(
-    r"^\s*(what|what's|whats|why|how|where|when|which|who|is|are|does|do|did|explain|o que|por ?que"
-    r"|como|onde|quando|qual|quais|explique|me explique)\b")
-
-
-def plain(text):
-    text = unicodedata.normalize("NFKD", text.lower())
-    return "".join(c for c in text if not unicodedata.combining(c))
 
 
 def classify(prompt):
     """(tier, signals) with tier in chore/standard/deep, or (None, []) when unclear."""
-    if not prompt or prompt.lstrip().startswith("/") or EVENT_PROMPT.match(prompt):
-        return None, []
-    own = PASTED.sub(" ", prompt)  # judge the user's own words, not pasted documents
-    text = plain(own)
-    words = len(text.split())
-    if words < 3:
-        return None, []  # "ok", "yes do it", "continue": keep going on the current setup
-    scores, signals = {}, {}
-    for tier, table in (("chore", CHORE), ("standard", STANDARD), ("deep", DEEP)):
-        scores[tier], signals[tier] = 0, []
-        for pattern, weight in table:
-            m = re.search(pattern, text)
-            if m:
-                scores[tier] += weight
-                signals[tier].append(m.group(0).strip())
-    c, s, d = scores["chore"], scores["standard"], scores["deep"]
-    if QUESTION.match(text):  # answered in place; only a deep question is worth flagging
-        return ("deep", signals["deep"][:3]) if d >= 2 else (None, [])
-    if d >= 2 and d >= s and d >= c:
-        return "deep", signals["deep"][:3]
-    if c > s and words <= CHORE_MAX_WORDS:
-        return "chore", signals["chore"][:3]
-    if s > c and s >= 1:  # nouns alone ("explain this function") don't make a coding task
-        return "standard", signals["standard"][:3]
-    return None, []
+    return router_classifier.classify(prompt)
+
+
+def unsure_note(model, effort, context):
+    """Claude-only note for a prompt the classifier can't label: let the session's own model judge.
+
+    Keyword rules miss most deep and chore prompts from a new author (blind2: deep 56%, chore 64%), while
+    the session model reads the prompt anyway. A Haiku judge was measured too and rejected: ~1,200
+    tokens, a second request and ~3.5 s on every prompt, and it still missed a third of the deep work.
+    This note costs ~50 tokens inside the request being made, and only names the moves that pay off for
+    this setup (the same ones advise() would make for a labeled prompt). The user sees nothing.
+    """
+    fam = family(model)
+    big = context >= BIG_CONTEXT
+    er = EFFORT_RANK.get(effort, -1)
+    moves = []
+    if fam in ("haiku", "sonnet"):
+        moves.append("its hard step needs deep reasoning (root cause, architecture, methodology, "
+                     "security, a trade-off decision) -> joao-kit:opus-thinker")
+    if fam == "haiku":
+        moves.append("it is real coding -> joao-kit:sonnet-worker")
+    if fam in ("opus", "fable") or (fam == "sonnet" and big):
+        moves.append("it is a bulky mechanical chore (many files or steps, no judgment) -> "
+                     "joao-kit:haiku-worker")
+    if fam == "fable" or (fam == "opus" and er >= EFFORT_RANK["xhigh"] and big):
+        moves.append("it is a self-contained implementation -> joao-kit:sonnet-worker")
+    if not moves:
+        return None
+    return ("[joao-kit pick-model] The router could not label this prompt; judge it yourself. If "
+            + "; if ".join(moves) + ". Otherwise just do it here. Don't mention this note.")
 
 
 def effort_keeps_cache(model):
@@ -278,20 +224,27 @@ def main(argv):
     if data.get("agent_id"):
         return 0  # inside a subagent: its model was already chosen
     state = load_state(data.get("session_id"))
-    tier, signals = classify(data.get("prompt") or "")
+    analysis = router_classifier.analyze(data.get("prompt") or "")
+    tier, signals = analysis["tier"], analysis["signals"]
+    unsure = (not tier and not analysis.get("settled", True)
+              and analysis["features"].get("words", 0) >= UNSURE_MIN_WORDS)
     advice = None
-    if tier:
+    if tier or unsure:
         model, turn = session_model(data, state)
         effort = (data.get("effort") or {}).get("level") or (turn or {}).get("effort")
         context = (turn or {}).get("context_tokens", 0)
-        advice = advise(tier, model, effort, context, (turn or {}).get("ttl"), signals)
+        if tier:
+            advice = advise(tier, model, effort, context, (turn or {}).get("ttl"), signals)
+        else:
+            note = unsure_note(model, effort, context)
+            advice = (None, None, note) if note else None
     show = should_show(state, advice[0] if advice else None)
     save_state(data.get("session_id"), state)
     if not advice:
         return 0
     _, user_hint, claude_hint = advice
     out = {}
-    if show:
+    if show and user_hint:
         out["systemMessage"] = user_hint
     if claude_hint:
         out["hookSpecificOutput"] = {"hookEventName": "UserPromptSubmit", "additionalContext": claude_hint}

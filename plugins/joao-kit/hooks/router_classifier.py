@@ -350,8 +350,9 @@ def own_words(prompt):
 
 def analyze(prompt, structural=True, fuzzy=True):
     """Everything the verdict rests on: tier (or None), reason, scores, matches, features."""
+    # settled: the silence is certain (nothing to route), as opposed to "no tier has enough evidence"
     result = {"tier": None, "reason": "", "signals": [], "scores": {}, "matches": [], "features": {},
-              "typos": []}
+              "typos": [], "settled": True}
     if not isinstance(prompt, str) or not prompt.strip():
         result["reason"] = "empty prompt"
         return result
@@ -398,6 +399,7 @@ def analyze(prompt, structural=True, fuzzy=True):
         hits[tier] += 1
         result["matches"].append({"tier": tier, "kind": kind, "text": m.group(0).strip(), "weight": weight,
                                   "lead": opens})
+    result["settled"] = False
     k = kinds.get
     chore = k("chore", 0) + (LEAD_BONUS if lead["chore"] else 0)
     nouns = min(1.0, k("noun", 0))
@@ -426,8 +428,10 @@ def analyze(prompt, structural=True, fuzzy=True):
         return result
 
     if THANKS.search(text) and words <= 8:
+        result["settled"] = True
         return verdict(None, "thanks or approval, not a request")
     if DEFINITION.match(body):
+        result["settled"] = True
         return verdict(None, "asks what something is: answered in place")
     # "... Can you find it and fix it?" is a request: a polite opener plus something to do
     last = body[max(m.end() for m in re.finditer(r"^|[.!?;:]\s+(?=\S)", body)):]

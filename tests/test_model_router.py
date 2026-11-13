@@ -42,7 +42,6 @@ def test_classify_stays_silent_when_unclear(prompt):
 @pytest.mark.parametrize("prompt", [  # the reviewer's false positives at an Opus default
     "what is the best way to structure the forecasting model for the prosumer data?",
     "o que é overfitting e como evito isso no meu modelo de previsão?",
-    "convert the training loop to use the new data module and make sure the tests still pass",
     "why did you choose LightGBM over the persistence baseline here?",
     "can you explain what this function does?",
     "where is the config loaded?",
@@ -51,6 +50,12 @@ def test_classify_stays_silent_when_unclear(prompt):
 ])
 def test_questions_and_refactors_get_no_label(prompt):
     assert model_router.classify(prompt)[0] is None
+
+
+def test_refactor_with_convert_is_not_a_chore():
+    # 0.2.0 kept this silent; the classifier calls it standard, which a reviewer accepts too
+    assert model_router.classify(
+        "convert the training loop to use the new data module and make sure the tests still pass")[0] != "chore"
 
 
 def test_long_prompt_is_not_a_chore():
@@ -261,3 +266,47 @@ def test_state_script_prices_a_switch_while_the_cache_is_warm(tmp_path):
                      [assistant(model="claude-opus-5-5", read=160_000, timestamp=now)])
     _, _, text = run_hook("model_state.py", {}, "warm", "high", env={"CLAUDE_CONFIG_DIR": str(tmp_path)})
     assert "switch_re-cache" in text and "sonnet $0.66" in text and "haiku $0.17" in text
+
+
+UNLABELED = "React state gets out of sync between tabs randomly"  # blind2 e067: deep, no keyword
+
+
+def test_unlabeled_prompt_on_sonnet_lets_claude_judge_deep_only(tmp_path):
+    assert model_router.classify(UNLABELED)[0] is None
+    rows = [assistant(model="claude-sonnet-5-5", effort="medium", read=8_000)]
+    code, out, _ = run_hook("model_router.py", payload(tmp_path, UNLABELED, rows, "medium"), env=env(tmp_path))
+    assert code == 0 and "systemMessage" not in out  # the user sees nothing
+    note = out["hookSpecificOutput"]["additionalContext"]
+    assert "joao-kit:opus-thinker" in note and "haiku-worker" not in note  # small context: no chore move
+    assert len(note.split()) < 60
+
+
+def test_unlabeled_prompt_on_big_sonnet_also_offers_haiku_worker(tmp_path):
+    rows = [assistant(model="claude-sonnet-5-5", effort="medium", read=120_000)]
+    _, out, _ = run_hook("model_router.py", payload(tmp_path, UNLABELED, rows, "medium"), env=env(tmp_path))
+    note = out["hookSpecificOutput"]["additionalContext"]
+    assert "joao-kit:opus-thinker" in note and "joao-kit:haiku-worker" in note
+
+
+def test_unlabeled_prompt_on_opus_offers_only_downward_moves(tmp_path):
+    rows = [assistant(model="claude-opus-5-5", effort="high", read=8_000)]
+    _, out, _ = run_hook("model_router.py", payload(tmp_path, UNLABELED, rows, "high"), env=env(tmp_path))
+    note = out["hookSpecificOutput"]["additionalContext"]
+    assert "joao-kit:haiku-worker" in note and "opus-thinker" not in note and "sonnet-worker" not in note
+
+
+@pytest.mark.parametrize("prompt", [
+    "push it",                             # too short
+    "thanks, that's perfect",               # thanks
+    "what is a race condition exactly?",    # definition
+    "/model opus",                          # slash command
+])
+def test_settled_silence_gets_no_note(tmp_path, prompt):
+    rows = [assistant(model="claude-sonnet-5-5", effort="medium", read=120_000)]
+    code, out, _ = run_hook("model_router.py", payload(tmp_path, prompt, rows, "medium"), env=env(tmp_path))
+    assert code == 0 and out is None
+
+
+def test_unlabeled_prompt_with_unknown_model_stays_silent(tmp_path):
+    code, out, _ = run_hook("model_router.py", payload(tmp_path, UNLABELED, None, "medium"), env=env(tmp_path))
+    assert code == 0 and out is None
