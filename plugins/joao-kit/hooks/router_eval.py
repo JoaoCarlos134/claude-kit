@@ -7,8 +7,9 @@ A corpus row is one JSON object per line: id, prompt, lang, expect (chore / stan
 alt (other tiers a reasonable person would accept), tags, note. A prediction counts as right when it is
 `expect` or one of `alt`; in the confusion matrix a right prediction is booked under `expect`.
 
-Splits. `blind.jsonl` was written by another model that never saw the router's vocabulary: it is the
-held-out set and is never used to tune. Every other row goes to `tune` or `holdout` (30%) by a hash of its
+Splits. Each `blind*.jsonl` was written by another model that never saw the router's vocabulary and is its
+own split, scored once on a frozen classifier. A blind set read while tuning stops being held out (blind.jsonl
+was used to tune v2; blind2.jsonl is the fresh one). Every other row goes to `tune` or `holdout` (30%) by a hash of its
 prompt, so the split can't be hand-picked; rows tagged `sanity` or `seed` are known regression cases and
 always sit in `tune`.
 """
@@ -32,8 +33,8 @@ def default_corpus():
 
 
 def split_of(row, source):
-    if source == "blind":
-        return "blind"
+    if source.startswith("blind"):
+        return source
     if {"sanity", "seed"} & set(row.get("tags") or []):
         return "tune"
     digest = hashlib.sha256(row["prompt"].encode("utf-8")).hexdigest()
@@ -130,7 +131,8 @@ def run(classify, corpus_dir=None, split="all", show_errors=False, check=False):
         print(f"no corpus found in {corpus_dir or default_corpus()} (the installed plugin ships without "
               "tests; run this from a clone of the repository or pass --corpus)")
         return 2
-    names = ("tune", "holdout", "blind") if split == "all" else (split,)
+    found = sorted({r["split"] for r in rows if r["split"].startswith("blind")})
+    names = ("tune", "holdout", *found) if split == "all" else (split,)
     code = 0
     for name in names:
         part = [r for r in rows if r["split"] == name]
