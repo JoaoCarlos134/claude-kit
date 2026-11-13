@@ -128,4 +128,5 @@ Verify the agent's report before you claim the work is done: read the diff, re-r
 - Delegating a one-line edit.
 - Treating effort as an input cost. It's output spend; in a loop, a higher effort can finish in fewer turns.
 - A `model:` field on a skill that runs in the main conversation (it causes a cache-breaking switch).
-- Trusting the router blindly. It matches keywords; overrule it when the task says otherwise.
+- Trusting the router blindly. It scores words and misses about half the deep and chore prompts (it stays
+  silent then); overrule it when the task says otherwise.

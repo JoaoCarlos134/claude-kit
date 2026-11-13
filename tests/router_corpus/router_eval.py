@@ -1,7 +1,8 @@
-"""Score a prompt classifier against the labeled corpus in tests/router_corpus.
+"""Score a prompt classifier against the labeled corpus in this folder.
 
-Not a hook: model_router.py imports it only for `python model_router.py eval`, and the comparison lab in
-tests/router_corpus/lab uses it so every variant is measured the same way.
+    python tests/router_corpus/router_eval.py [split] [--errors] [--check]
+
+scores the plugin's router_classifier; tests/test_router_corpus.py runs the regression check in CI.
 
 A corpus row is one JSON object per line: id, prompt, lang, expect (chore / standard / deep / none),
 alt (other tiers a reasonable person would accept), tags, note. A prediction counts as right when it is
@@ -27,9 +28,8 @@ MAX_FALSE_NUDGE = 0.03
 
 
 def default_corpus():
-    """tests/router_corpus of the repository this file sits in (the installed plugin has no tests)."""
-    here = os.path.dirname(os.path.abspath(__file__))
-    return os.path.normpath(os.path.join(here, "..", "..", "..", "tests", "router_corpus"))
+    """The folder this file sits in."""
+    return os.path.dirname(os.path.abspath(__file__))
 
 
 def split_of(row, source):
@@ -128,8 +128,7 @@ def run(classify, corpus_dir=None, split="all", show_errors=False, check=False):
     """Print the report for one split (or each of them) and return the exit code."""
     rows = load(corpus_dir)
     if not rows:
-        print(f"no corpus found in {corpus_dir or default_corpus()} (the installed plugin ships without "
-              "tests; run this from a clone of the repository or pass --corpus)")
+        print(f"no corpus found in {corpus_dir or default_corpus()}")
         return 2
     found = sorted({r["split"] for r in rows if r["split"].startswith("blind")})
     names = ("tune", "holdout", *found) if split == "all" else (split,)
@@ -145,3 +144,12 @@ def run(classify, corpus_dir=None, split="all", show_errors=False, check=False):
         if check and missed:
             code = 1
     return code
+
+
+if __name__ == "__main__":
+    import sys
+    sys.path.insert(0, os.path.join(default_corpus(), "..", "..", "plugins", "joao-kit", "hooks"))
+    import router_classifier
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    sys.exit(run(router_classifier.classify, split=args[0] if args else "all",
+                 show_errors="--errors" in sys.argv, check="--check" in sys.argv))

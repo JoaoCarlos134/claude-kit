@@ -8,9 +8,9 @@ opus-thinker (each gets the project's memory through context_bridge.py), and tel
 `/effort` or `/model` change is the better move, with what the switch would cost.
 
 Free and offline: router_classifier.py scores the user's own words (English and Portuguese), no model
-call. Silent when the setup fits, when the prompt is too short, and on event turns Claude Code starts by
-itself. When the classifier can't label a prompt of UNSURE_MIN_WORDS or more, Claude gets a short note
-to judge it itself (unsure_note) - the classifier is kept for the cases it is sure of.
+call. It labels only what it is fairly sure of and stays silent otherwise (on prompts from a new author it
+catches about 56% of deep and 64% of chore prompts, and a label it gives is right 84-88% of the time).
+Silent too when the setup fits, when the prompt is too short, and on event turns Claude Code starts.
 The user sees a given hint once per session (again only REPEAT_AFTER prompts later); Claude gets it on
 every mismatched prompt, because acting on it is how the routing happens.
 """
@@ -30,42 +30,12 @@ from model_state import (  # noqa: E402
 
 REPEAT_AFTER = 15
 BIG_CONTEXT = 40_000  # below this, doing standard work in place costs little; don't push delegation
-UNSURE_MIN_WORDS = 5  # shorter unlabeled prompts ("push it", "yes go ahead") carry on as they are
 
 
 
 def classify(prompt):
     """(tier, signals) with tier in chore/standard/deep, or (None, []) when unclear."""
     return router_classifier.classify(prompt)
-
-
-def unsure_note(model, effort, context):
-    """Claude-only note for a prompt the classifier can't label: let the session's own model judge.
-
-    Keyword rules miss most deep and chore prompts from a new author (blind2: deep 56%, chore 64%), while
-    the session model reads the prompt anyway. A Haiku judge was measured too and rejected: ~1,200
-    tokens, a second request and ~3.5 s on every prompt, and it still missed a third of the deep work.
-    This note costs ~50 tokens inside the request being made, and only names the moves that pay off for
-    this setup (the same ones advise() would make for a labeled prompt). The user sees nothing.
-    """
-    fam = family(model)
-    big = context >= BIG_CONTEXT
-    er = EFFORT_RANK.get(effort, -1)
-    moves = []
-    if fam in ("haiku", "sonnet"):
-        moves.append("its hard step needs deep reasoning (root cause, architecture, methodology, "
-                     "security, a trade-off decision) -> joao-kit:opus-thinker")
-    if fam == "haiku":
-        moves.append("it is real coding -> joao-kit:sonnet-worker")
-    if fam in ("opus", "fable") or (fam == "sonnet" and big):
-        moves.append("it is a bulky mechanical chore (many files or steps, no judgment) -> "
-                     "joao-kit:haiku-worker")
-    if fam == "fable" or (fam == "opus" and er >= EFFORT_RANK["xhigh"] and big):
-        moves.append("it is a self-contained implementation -> joao-kit:sonnet-worker")
-    if not moves:
-        return None
-    return ("[joao-kit pick-model] The router could not label this prompt; judge it yourself. If "
-            + "; if ".join(moves) + ". Otherwise just do it here. Don't mention this note.")
 
 
 def effort_keeps_cache(model):
@@ -224,27 +194,20 @@ def main(argv):
     if data.get("agent_id"):
         return 0  # inside a subagent: its model was already chosen
     state = load_state(data.get("session_id"))
-    analysis = router_classifier.analyze(data.get("prompt") or "")
-    tier, signals = analysis["tier"], analysis["signals"]
-    unsure = (not tier and not analysis.get("settled", True)
-              and analysis["features"].get("words", 0) >= UNSURE_MIN_WORDS)
+    tier, signals = classify(data.get("prompt") or "")
     advice = None
-    if tier or unsure:
+    if tier:
         model, turn = session_model(data, state)
         effort = (data.get("effort") or {}).get("level") or (turn or {}).get("effort")
         context = (turn or {}).get("context_tokens", 0)
-        if tier:
-            advice = advise(tier, model, effort, context, (turn or {}).get("ttl"), signals)
-        else:
-            note = unsure_note(model, effort, context)
-            advice = (None, None, note) if note else None
+        advice = advise(tier, model, effort, context, (turn or {}).get("ttl"), signals)
     show = should_show(state, advice[0] if advice else None)
     save_state(data.get("session_id"), state)
     if not advice:
         return 0
     _, user_hint, claude_hint = advice
     out = {}
-    if show and user_hint:
+    if show:
         out["systemMessage"] = user_hint
     if claude_hint:
         out["hookSpecificOutput"] = {"hookEventName": "UserPromptSubmit", "additionalContext": claude_hint}
